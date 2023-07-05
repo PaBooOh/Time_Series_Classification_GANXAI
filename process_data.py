@@ -41,21 +41,30 @@ def get_time_series_length(X):
         return X.shape[1]
 
 # Get shapelets with specified length and specified interval for a class
-def crop_shapelets_from_dataset(X, Y, length, start_pos, target_class):
+def crop_shapelets_from_dataset(X, Y, length, start_pos):
     from sktime.datatypes._panel._convert import from_nested_to_2d_array
     X = from_nested_to_2d_array(X).to_numpy()
     res = []
     for x, y in zip(X, Y):
-        if (int(y) == target_class):
-            res.append(x[start_pos: start_pos+length])
+        # if (int(y) == target_class):
+        res.append(x[start_pos: start_pos + length])
     
     return np.array(res)
+
+def get_data_by_class(X, Y, label):
+    from sktime.datatypes._panel._convert import from_nested_to_2d_array
+    X = from_nested_to_2d_array(X).to_numpy()
+    result = []
+    for x, y in zip(X, Y):
+        if (int(y) == int(label)):
+            result.append(x)
+    return result
 
 def numpy_2d_to_list(data):
     return [data[i].reshape(-1, 1) for i in range(data.shape[0])]
 
 # return list
-def generate_fake_shapelets_by_TimeGAN(X, seq_length):
+def generate_fake_sequences_by_TimeGAN(X, seq_length):
     from ydata_synthetic.synthesizers import ModelParameters
     from ydata_synthetic.synthesizers.timeseries import TimeGAN
     gan_args = ModelParameters(batch_size=4,
