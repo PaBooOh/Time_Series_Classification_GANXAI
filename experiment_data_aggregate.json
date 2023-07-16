@@ -1,0 +1,1 @@
+[{"Dataset": "ECG200", "Classifier_name": "DrCIF", "To-be-explained_instance_id": 33, "Number of counterfactuals generated": 49, "Random_seed": 111, "Average_Closeness": {"Average_Closeness_L1": 8.500712483604756, "Average_Closeness_L2": 2.332091254770101}, "Average_Sparsity": 0.7916666666666666, "Average_Outliers": 0.20408163265306123}]

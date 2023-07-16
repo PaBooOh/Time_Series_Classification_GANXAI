@@ -3,14 +3,14 @@ from config import *
 
 
 # Random Shapelet Transform for saving time
-def get_shapelet_candidates_with_ST(random=True, min_len=10, max_len=50, random_seed=111):
+def get_shapelet_candidates_with_ST(random=True, min_len=10, max_len=50, random_seed=111, time_limit=1):
     if random:
         st = RandomShapeletTransform(
         # n_shapelet_samples=20000,
         max_shapelets=20, # per class
         min_shapelet_length=min_len,
         max_shapelet_length=max_len,
-        time_limit_in_minutes=1,
+        time_limit_in_minutes=time_limit,
         random_state=random_seed
         )
     else:

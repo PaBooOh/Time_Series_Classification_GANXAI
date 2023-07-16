@@ -2,6 +2,7 @@ from sktime.datasets import load_from_arff_to_dataframe
 import os
 import numpy as np
 import pandas as pd
+import config
 
 def process_ucr_dataset(dataset, panel=True, all_data=False):
     X_train, y_train = load_from_arff_to_dataframe('UCR_dataset/'+ dataset +'/'+ dataset +'_TRAIN.arff')
@@ -49,7 +50,7 @@ def crop_shapelets_from_dataset(X, Y, length, start_pos):
         # if (int(y) == target_class):
         res.append(x[start_pos: start_pos + length])
     
-    return np.array(res)
+    return res
 
 def get_data_by_class(X, Y, label):
     from sktime.datatypes._panel._convert import from_nested_to_2d_array
@@ -64,15 +65,26 @@ def numpy_2d_to_list(data):
     return [data[i].reshape(-1, 1) for i in range(data.shape[0])]
 
 # return list
-def generate_fake_sequences_by_TimeGAN(X, seq_length):
+## path = (e.g) /TimeGAN_Models/ECG200/ECG200_500_111.pkl
+def generate_fake_sequences_by_TimeGAN(X, seq_length, save_model=False, use_model=False, path="TimeGAN_Models/" + config.dataset_name + "/" + config.dataset_name + "_" + str(config.train_steps) + "_" + str(config.random_seed) + ".pkl"):
     from ydata_synthetic.synthesizers import ModelParameters
     from ydata_synthetic.synthesizers.timeseries import TimeGAN
     gan_args = ModelParameters(batch_size=4,
                            lr=5e-4,
                            noise_dim=32,
                            layers_dim=64)
-    synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=seq_length, n_seq=1, gamma=1)
-    synth.train(X, train_steps=500)
+    
+    if use_model: 
+        print("Loaded pre-trained TimeGAN model successfully.")
+        synth = TimeGAN.load(path) # load
+    else:
+        synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=seq_length, n_seq=1, gamma=1)
+        synth.train(X, train_steps=config.train_steps)
+        if save_model: 
+            synth.save(path) # save
+            print("TimeGAN model is successully trained and saved to: ", path)
+    
+    
     synth_data = synth.sample(len(X))
     return synth_data
 
