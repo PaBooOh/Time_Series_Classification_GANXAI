@@ -13,8 +13,18 @@ experiment_result_path_individual = 'experiment_data.json'
 experiment_result_path_aggregate = 'experiment_data_aggregate.json'
 
 ## TimeGAN
-model_path = ""
 train_steps = 5000
+model_saved_path = "TimeGAN_Models/" + dataset_name + "/" + dataset_name + "_" + str(train_steps) + "_" + str(random_seed) + ".pkl"
+to_save_model = True
+to_load_model = False
+timegan_parameters = {
+    "batch_size":4,
+    "learning_rate":5e-4,
+    "noise_dim":32,
+    "layers_dim":64,
+    "hidden_dim":24,
+    "gamma":1
+}
 ## Generation model
 
 

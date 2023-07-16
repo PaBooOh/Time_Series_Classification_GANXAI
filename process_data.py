@@ -66,25 +66,33 @@ def numpy_2d_to_list(data):
 
 # return list
 ## path = (e.g) /TimeGAN_Models/ECG200/ECG200_500_111.pkl
-def generate_fake_sequences_by_TimeGAN(X, seq_length, save_model=False, use_model=False, path="TimeGAN_Models/" + config.dataset_name + "/" + config.dataset_name + "_" + str(config.train_steps) + "_" + str(config.random_seed) + ".pkl"):
+def generate_fake_sequences_by_TimeGAN(X, 
+                                       seq_length, 
+                                       save_model=config.to_save_model, 
+                                       use_model=config.to_load_model, 
+                                       path=config.model_saved_path):
     from ydata_synthetic.synthesizers import ModelParameters
     from ydata_synthetic.synthesizers.timeseries import TimeGAN
-    gan_args = ModelParameters(batch_size=4,
-                           lr=5e-4,
-                           noise_dim=32,
-                           layers_dim=64)
+    gan_args = ModelParameters(batch_size=config.timegan_parameters["batch_size"],
+                           lr=config.timegan_parameters["learning_rate"],
+                           noise_dim=config.timegan_parameters["noise_dim"],
+                           layers_dim=config.timegan_parameters["layers_dim"])
     
     if use_model: 
         print("Loaded pre-trained TimeGAN model successfully.")
         synth = TimeGAN.load(path) # load
     else:
-        synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=seq_length, n_seq=1, gamma=1)
+        synth = TimeGAN(model_parameters=gan_args, 
+                        hidden_dim=config.timegan_parameters["hidden_dim"], 
+                        seq_len=seq_length, 
+                        n_seq=1, 
+                        gamma=config.timegan_parameters["gamma"])
         synth.train(X, train_steps=config.train_steps)
         if save_model: 
             synth.save(path) # save
             print("TimeGAN model is successully trained and saved to: ", path)
     
-    
+    # get data
     synth_data = synth.sample(len(X))
     return synth_data
 
