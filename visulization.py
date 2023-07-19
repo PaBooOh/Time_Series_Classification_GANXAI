@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from process_data import *
 import config
 
-def plot_save_time_series(cf_series, orig_series, dataset_name, classifier_name, instance_id, random_seed, timegan_id, sp_idx, is_plot=False, is_save=True):
+def plot_save_time_series(cf_series, orig_series, dataset_name, classifier_name, instance_id, random_seed, timegan_id, sp_idx, is_plot=False, is_save=False):
     # transform data to meet matplot requirement
     cf_series = np.squeeze(cf_series)
     orig_series = np.squeeze(orig_series)

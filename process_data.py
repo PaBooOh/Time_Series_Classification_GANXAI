@@ -68,9 +68,9 @@ def numpy_2d_to_list(data):
 ## path = (e.g) /TimeGAN_Models/ECG200/ECG200_500_111.pkl
 def generate_fake_sequences_by_TimeGAN(X, 
                                        seq_length, 
-                                       save_model=config.to_save_model, 
-                                       use_model=config.to_load_model, 
-                                       path=config.model_saved_path):
+                                       save_model, 
+                                       use_model, 
+                                       path):
     from ydata_synthetic.synthesizers import ModelParameters
     from ydata_synthetic.synthesizers.timeseries import TimeGAN
     gan_args = ModelParameters(batch_size=config.timegan_parameters["batch_size"],

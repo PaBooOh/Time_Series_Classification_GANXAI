@@ -3,8 +3,6 @@
 # from sklearn.metrics import accuracy_score
 # from sktime.datasets import load_from_arff_to_dataframe
 # from sktime.datatypes._panel._convert import from_nested_to_2d_array
-from sktime.classification.distance_based import KNeighborsTimeSeriesClassifier
-from collections import defaultdict
 from process_data import *
 from shapelets_transform import*
 from sklearn.metrics import classification_report
@@ -76,8 +74,7 @@ print("Training isolation forest model for anomaly detection ......")
 from sktime.datatypes._panel._convert import from_nested_to_2d_array
 X_train_float = from_nested_to_2d_array(X_train).to_numpy()
 # X_train_float = np.array(X_train).reshape(-1, 1)
-from sklearn.ensemble import IsolationForest
-if_model = IsolationForest(random_state=random_seed).fit(X_train_float)
+if_model = experiment.train_isolation_forest(X_train_float, random_seed)
 print()
 
 # Specify a to-be-explained instance from test set.
@@ -96,9 +93,21 @@ print()
 """
 print("(2) Extracting Shapelet candidates ......")
 print()
-st = get_shapelet_candidates_with_ST(min_len=3, max_len=int(seq_length*0.5), random_seed=random_seed, time_limit=2)
-st.fit(X_train, y_train)
+st = get_shapelet_candidates_with_ST(min_len=3, 
+                                     max_len=int(seq_length*0.5), 
+                                     random_seed=random_seed, 
+                                     time_limit=config.extract_time)
+
+
+if config.save_st:
+    st.fit(X_train, y_train)
+    st.save(path=config.st_saved_path)
+else:
+    st = st.load_from_path(config.st_saved_path + ".zip")
+
 st.transform(X_train)
+
+
 sorted_shapelets = sorted(st.shapelets, key=lambda sp: sp[1]) # Sorted by length
 print("Statistics about all Shapelets extracted by Shapelet Transform: ")
 for sp in sorted_shapelets: # 0: information gain; 1: len; 2: start_pos; 4: instance id; 5: class; 
@@ -112,7 +121,12 @@ print()
 print("(3) Generating fake instances by TimeGAN ......")
 print()
 target_instances = get_data_by_class(X_train, y_train, target_y)
-fake_target_instances = generate_fake_sequences_by_TimeGAN(target_instances, seq_length, save_model=True, use_model=False)
+fake_target_instances = generate_fake_sequences_by_TimeGAN(
+    target_instances, 
+    seq_length, 
+    save_model=config.to_save_model, 
+    use_model=config.to_load_model, 
+    path=config.model_saved_path)
 # print(fake_target_instances.shape)
 
 """
@@ -170,15 +184,15 @@ for sp_idx, sp in enumerate(sorted_shapelets):
                 print("Closeness_l1: ", closeness_l1, ", Closeness_l2: ", closeness_l2, ", Sparsity: ", sparsity, ", Out-of-distribution: ", isolation_predict)
 
                 # 1. plot the comparison between to-be-explained and cf
-                plot_save_time_series(
-                    cf_instance, 
-                    to_be_explained_instance, 
-                    dataset_name=dataset_name, 
-                    classifier_name=classifier_name, 
-                    instance_id=instance_id, 
-                    random_seed=random_seed,
-                    timegan_id=timegan_idx,
-                    sp_idx=sp_idx)
+                # plot_save_time_series(
+                #     cf_instance, 
+                #     to_be_explained_instance, 
+                #     dataset_name=dataset_name, 
+                #     classifier_name=classifier_name, 
+                #     instance_id=instance_id, 
+                #     random_seed=random_seed,
+                #     timegan_id=timegan_idx,
+                #     sp_idx=sp_idx)
                 
                 # 2. store experiment results for each cf based on a Shapelet
                 experiment.write_data_json(dataset_name, 

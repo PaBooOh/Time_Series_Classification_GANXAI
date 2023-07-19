@@ -2,8 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 import os
+from alibi.explainers import Counterfactual
 from scipy.interpolate import UnivariateSpline
-from config import experiment_result_path_aggregate, experiment_result_path_individual
+from config import experiment_result_path_aggregate, experiment_result_path_individual, alibi_parameters
 
 
 def shapelet_example():
@@ -126,3 +127,42 @@ def write_aggregate_data_json(dataset_name,
     # save
     with open(filename, 'w') as f:
         json.dump(data, f)
+
+def train_isolation_forest(X_train, random_seed):
+    from sklearn.ensemble import IsolationForest
+    if_model = IsolationForest(random_state=random_seed).fit(X_train)
+    return if_model
+
+
+class AlibiExperiment():
+
+    def __init__(self, classifier, shape, pred_proba):
+        self.classifier = classifier
+        self.abili_cfi_model  = Counterfactual(
+            classifier,
+            shape,
+            pred_proba,
+            target_proba=alibi_parameters["target_proba"], 
+            tol=alibi_parameters["tol"],
+            target_class=alibi_parameters["target_class"], 
+            max_iter=alibi_parameters["max_iter"], 
+            lam_init=alibi_parameters["lam_init"],
+            max_lam_steps=alibi_parameters["max_lam_steps"], 
+            learning_rate_init=alibi_parameters["learning_rate_init"])
+        
+    def get_explanation(self, to_be_explained_instance, probs):
+        return self.abili_cfi_model.explain(to_be_explained_instance, probs)
+
+    # def calculate_closeness_l1(self, cf, original):
+    #     return
+    
+    # def calculate_closeness_l2(self, cf, original):
+    #     return
+    
+    # def calculate_sparsity(self, cf, original):
+    #     return
+    
+    # def calculate_plausity(self, X_train, instance, random_seed):
+    #     train_isolation_forest(X_train, random_seed)
+    #     return
+    
