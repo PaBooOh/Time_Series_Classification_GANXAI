@@ -62,16 +62,18 @@ elif classifier_name == "Catch22":
 print("(1) Loading classifier ......")
 print()
 
-# from zipfile import ZipFile
 # with ZipFile(config.classifier_path, 'r') as myzip:
 #     serialized_object = myzip.open("keras/saved_model.pb")
 
 # clf.load_from_serial(serialized_object)
-clf.fit(X_train, y_train)
+if config.save_cls:
+    clf.fit(X_train, y_train)
+    clf.save(path=config.classifier_path)
+else:
+    clf = clf.load_from_path(classifier_path + ".zip")
 y_pred = clf.predict(X_test)
 print("Report: ")
 print(classification_report(y_test, y_pred, target_names=class_names))
-# print("Score: ", clf.score(X_test, y_test)) # score
 # clf.save(config.classifier_path)
 print()
 """
@@ -87,14 +89,12 @@ to_be_explained_instance = X_test.iloc[instance_id][0].values.reshape(1, seq_len
 to_be_explained_instance_label_y = y_test[instance_id]
 to_be_explained_instance_predicted_y = clf.predict(to_be_explained_instance)[0]
 print("To-be-explained_instance_id: ", instance_id, ", Predicted: ", to_be_explained_instance_predicted_y, ", Truth: ", to_be_explained_instance_label_y)
-probs = clf.predict_proba(to_be_explained_instance)
-print(to_be_explained_instance.shape)
-# print(probs)
-# pred_class = probs.argmax(axis=1).item()
-# pred_prob = probs.max(axis=1).item()
-# print(pred_prob, pred_class)
-alibi = experiment.AlibiExperiment(classifier=clf, shape=to_be_explained_instance.shape, pred_proba=probs)
-explanation = alibi.get_explanation(to_be_explained_instance, probs)
+# probs = clf.predict_proba(to_be_explained_instance)
+# print(to_be_explained_instance.shape)
+# print(probs.max(axis=1).item())
+alibi = experiment.AlibiExperiment(classifier=clf, shape=to_be_explained_instance.shape)
+# alibi = experiment.AlibiExperiment(classifier=clf, shape=to_be_explained_instance.shape, pred_proba=probs)
+explanation = alibi.get_explanation(to_be_explained_instance)
 print(explanation)
 closeness_l1 = experiment.calculate_closeness(explanation.cf['X'], to_be_explained_instance, "l1")
 closeness_l2 = experiment.calculate_closeness(explanation.cf['X'], to_be_explained_instance, "l2")

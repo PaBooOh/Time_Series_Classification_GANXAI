@@ -32,8 +32,8 @@ timegan_parameters = {
 }
 
 ## Classifiers
-
-classifier_path = "Classifiers_Models/" + classifier_name + "/" + classifier_name + "_" + str(random_seed) + ".zip"
+save_cls = False
+classifier_path = "Classifiers_Models/" + classifier_name + "/" + classifier_name + "_" + str(random_seed)
 
 ## Comparative study: Alibi
 
