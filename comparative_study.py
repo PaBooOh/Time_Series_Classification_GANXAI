@@ -1,14 +1,14 @@
 import experiment
-import experiment
 import numpy as np
-import tensorflow as tf
 import config
+from mlxtend.data import iris_data
 
 from process_data import *
 from shapelets_transform import*
 from sklearn.metrics import classification_report
 from visulization import *
-
+# X, y = iris_data()
+# print(y)
 """
 Configuration
 """
@@ -62,10 +62,6 @@ elif classifier_name == "Catch22":
 print("(1) Loading classifier ......")
 print()
 
-# with ZipFile(config.classifier_path, 'r') as myzip:
-#     serialized_object = myzip.open("keras/saved_model.pb")
-
-# clf.load_from_serial(serialized_object)
 if config.save_cls:
     clf.fit(X_train, y_train)
     clf.save(path=config.classifier_path)
@@ -76,6 +72,9 @@ print("Report: ")
 print(classification_report(y_test, y_pred, target_names=class_names))
 # clf.save(config.classifier_path)
 print()
+
+from mlxtend.evaluate import create_counterfactual
+
 """
 3 - Comparative Study: Alibi cf
 """
@@ -89,17 +88,28 @@ to_be_explained_instance = X_test.iloc[instance_id][0].values.reshape(1, seq_len
 to_be_explained_instance_label_y = y_test[instance_id]
 to_be_explained_instance_predicted_y = clf.predict(to_be_explained_instance)[0]
 print("To-be-explained_instance_id: ", instance_id, ", Predicted: ", to_be_explained_instance_predicted_y, ", Truth: ", to_be_explained_instance_label_y)
-# probs = clf.predict_proba(to_be_explained_instance)
+probas = clf.predict_proba(to_be_explained_instance)
+y_desired = 0 if to_be_explained_instance_predicted_y == "-1" else 1
+# print(probas) # probas[0] == '-1'; probas[1] == '1'
+# print(X_train_float.shape)
+res = create_counterfactual(x_reference=to_be_explained_instance, 
+                            y_desired=y_desired, 
+                            model=clf, 
+                            X_dataset=X_train_float,
+                            y_desired_proba=1.,
+                            lammbda=1, #  hyperparameter
+                            random_seed=config.random_seed)
 # print(to_be_explained_instance.shape)
 # print(probs.max(axis=1).item())
-alibi = experiment.AlibiExperiment(classifier=clf, shape=to_be_explained_instance.shape)
-# alibi = experiment.AlibiExperiment(classifier=clf, shape=to_be_explained_instance.shape, pred_proba=probs)
-explanation = alibi.get_explanation(to_be_explained_instance)
-print(explanation)
-closeness_l1 = experiment.calculate_closeness(explanation.cf['X'], to_be_explained_instance, "l1")
-closeness_l2 = experiment.calculate_closeness(explanation.cf['X'], to_be_explained_instance, "l2")
-sparsity = experiment.calculate_sparsity(explanation.cf['X'], to_be_explained_instance)
-isolation_predict = experiment.predict_outlier_with_isolation_forest(if_model, explanation.cf['X'])
+# alibi = experiment.AlibiExperiment(classifier=clf, shape=to_be_explained_instance.shape)
+# # alibi = experiment.AlibiExperiment(classifier=clf, shape=to_be_explained_instance.shape, pred_proba=probs)
+# explanation = alibi.get_explanation(to_be_explained_instance, probas)
+print(res)
+print('Predicted label:', clf.predict(res.reshape(1, -1))[0])
+closeness_l1 = experiment.calculate_closeness(res, to_be_explained_instance, "l1")
+closeness_l2 = experiment.calculate_closeness(res, to_be_explained_instance, "l2")
+sparsity = experiment.calculate_sparsity(res, to_be_explained_instance)
+isolation_predict = experiment.predict_outlier_with_isolation_forest(if_model, res)
 print("Closeness_L1: ", closeness_l1, ", Closeness_L2: ", closeness_l2, ", Sparsity: ", sparsity, ", Isolation: ", isolation_predict)
 
 

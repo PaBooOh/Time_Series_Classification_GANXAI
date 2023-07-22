@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import json
-import os
-from alibi.explainers import Counterfactual
+# import os
+# from alibi.explainers import Counterfactual
 from scipy.interpolate import UnivariateSpline
 from config import experiment_result_path_aggregate, experiment_result_path_individual, alibi_parameters
 
@@ -134,24 +134,24 @@ def train_isolation_forest(X_train, random_seed):
     return if_model
 
 
-class AlibiExperiment():
+# class AlibiExperiment():
 
-    def __init__(self, classifier, shape):
-        self.classifier = classifier
-        self.abili_cfi_model  = Counterfactual(
-            classifier,
-            shape,
-            # pred_proba,
-            target_proba=alibi_parameters["target_proba"], 
-            tol=alibi_parameters["tol"],
-            target_class=alibi_parameters["target_class"], 
-            max_iter=alibi_parameters["max_iter"], 
-            lam_init=alibi_parameters["lam_init"],
-            max_lam_steps=alibi_parameters["max_lam_steps"], 
-            learning_rate_init=alibi_parameters["learning_rate_init"])
+#     def __init__(self, classifier, shape):
+#         self.classifier = classifier
+#         self.abili_cfi_model  = Counterfactual(
+#             classifier,
+#             shape,
+#             # pred_proba,
+#             target_proba=alibi_parameters["target_proba"], 
+#             tol=alibi_parameters["tol"],
+#             target_class=alibi_parameters["target_class"], 
+#             max_iter=alibi_parameters["max_iter"], 
+#             lam_init=alibi_parameters["lam_init"],
+#             max_lam_steps=alibi_parameters["max_lam_steps"], 
+#             learning_rate_init=alibi_parameters["learning_rate_init"])
         
-    def get_explanation(self, to_be_explained_instance):
-        return self.abili_cfi_model.explain(to_be_explained_instance)
+#     def get_explanation(self, to_be_explained_instance, probas):
+#         return self.abili_cfi_model.explain(to_be_explained_instance, probas)
 
     # def calculate_closeness_l1(self, cf, original):
     #     return
