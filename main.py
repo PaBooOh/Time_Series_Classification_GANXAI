@@ -222,7 +222,8 @@ for sp_idx, sp in enumerate(sorted_shapelets):
             1 - sum_normal / cf_count, 
             random_seed,
             instance_id,
-            cf_count)
+            cf_count,
+            path=config.experiment_result_path_aggregate)
     else:
         print("Shapelet " + str(sp_idx), " is not able to help to find cf.")
         print()

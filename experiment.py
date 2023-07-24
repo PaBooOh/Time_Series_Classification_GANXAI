@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import json
-# import os
+import os
 # from alibi.explainers import Counterfactual
 from scipy.interpolate import UnivariateSpline
 from config import experiment_result_path_aggregate, experiment_result_path_individual, alibi_parameters
@@ -99,9 +99,10 @@ def write_aggregate_data_json(dataset_name,
                               avg_outliers, 
                               random_seed, 
                               instance_id,
-                              cf_count):
+                              cf_count,
+                              path):
     
-    filename = experiment_result_path_aggregate
+    filename = path
     # read json, if there is no content in this json, initialize it then.
     if os.path.exists(filename) and os.path.getsize(filename) > 0:
         with open(filename, 'r') as f:

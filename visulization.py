@@ -49,3 +49,21 @@ def show_dataset_visually(X_train, y_train, dataset_name):
     # plt.title('Data distribution of')
     plt.savefig('Figures/' + dataset_name + '_classes.png')
     # plt.show()
+
+# def plot_bar(dataset_names=["ECG200", "MoteStrain", "Wafer"], 
+#              method_names=["mlxtend", "Time-CF", "mlxtend", "Time-CF", "mlxtend", "Time-CF"]):
+#     # Category=["mlxtend", "Time-CF"], 
+#     import seaborn as sns
+#     import matplotlib.pyplot as plt
+#     import pandas as pd
+#     data = {'Dataset': dataset_names,
+#             'Method': method_names,
+#             'Value': [7, 5, 12, 10, 5, 7]}
+#     # data = {'Dataset': ['Dataset 1', 'Dataset 1', 'Dataset 2', 'Dataset 2', 'Dataset 3', 'Dataset 3', 'Dataset 4', 'Dataset 4', 'Dataset 5', 'Dataset 5'],
+#     #         'Method': ['Method AAA', 'Method B', 'Method A', 'Method B', 'Method A', 'Method B', 'Method A', 'Method B', 'Method A', 'Method B'],
+#     #         'Value': [7, 5, 12, 10, 5, 7, 18, 15, 6, 8]}
+#     df = pd.DataFrame(data)
+#     sns.barplot(x='Dataset', y='Value', hue='Method', data=df)
+#     plt.show()
+
+# plot_bar()
