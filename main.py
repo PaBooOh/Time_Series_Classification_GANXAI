@@ -62,21 +62,35 @@ elif classifier_name == "Catch22":
         random_state=random_seed
     ) 
  
-print("(1) Training classifier ......")
+print("(1) Training classifier ", classifier_name, " ", clf)
 print()
-clf.fit(X_train, y_train)
+
+if config.save_cls:
+    clf.fit(X_train, y_train)
+    clf.save(path=config.classifier_path)
+else:
+    clf = clf.load_from_path(config.classifier_path + ".zip")
+    print("Loading model at " + config.classifier_path + ".zip")
 y_pred = clf.predict(X_test)
 print("Report: ")
 print(classification_report(y_test, y_pred, target_names=class_names))
-# print("Score: ", clf.score(X_test, y_test)) # score
+print("Score: ", clf.score(X_test, y_test)) # score
 print()
 print("Training isolation forest model for anomaly detection ......")
 from sktime.datatypes._panel._convert import from_nested_to_2d_array
 X_train_float = from_nested_to_2d_array(X_train).to_numpy()
+# X_test_float = from_nested_to_2d_array(X_test).to_numpy()
 # X_train_float = np.array(X_train).reshape(-1, 1)
 if_model = experiment.train_isolation_forest(X_train_float, random_seed)
-print()
 
+# sum_normal_test = 0
+# for instance in X_test_float:
+#     y_pred = if_model.predict(instance.reshape(1, -1))
+#     sum_normal_test += 1
+#     # print()
+# print("Isolation forest test: ", sum_normal_test / 100.0)
+# print()
+# a
 # Specify a to-be-explained instance from test set.
 instance_id = config.instance_id # Test set instance
 to_be_explained_instance = X_test.iloc[instance_id][0].values.reshape(1, 1, seq_length)
@@ -88,10 +102,11 @@ target_y = 1 if int(to_be_explained_instance_predicted_y) == -1 else -1
 print("To-be-explained_instance_id: ", instance_id, ", Predicted: ", to_be_explained_instance_predicted_y, ", Truth: ", to_be_explained_instance_label_y, ", Target: ", target_y)
 print()
 
+test_if_y = 1 if target_y == -1 else 1
 """
 3 - Train Random Shapelet Transform model and get candidates
 """
-print("(2) Extracting Shapelet candidates ......")
+print("(2) Extracting Shapelet candidates based on sktime's Random Shapelet Transform......")
 print()
 st = get_shapelet_candidates_with_ST(min_len=3, 
                                      max_len=int(seq_length*0.5), 
@@ -110,9 +125,9 @@ st.transform(X_train)
 
 sorted_shapelets = sorted(st.shapelets, key=lambda sp: sp[1]) # Sorted by length
 print("Statistics about all Shapelets extracted by Shapelet Transform: ")
-for sp in sorted_shapelets: # 0: information gain; 1: len; 2: start_pos; 4: instance id; 5: class; 
+for idx, sp in enumerate(sorted_shapelets): # 0: information gain; 1: len; 2: start_pos; 4: instance id; 5: class; 
     # Show the extracted Shapelets candidates after Shapelets Transform (ST)
-    print("Information gain: ", sp[0], ", Start: ", sp[2], ", Length: ", sp[1], ", From Instance id: ", sp[4], ", Class: ", sp[5])
+    print("Shapelet_Id: ", idx, ", Information gain: ", sp[0], ", Start: ", sp[2], ", Length: ", sp[1], ", From Instance id: ", sp[4], ", Class: ", sp[5])
 print()
 
 """
@@ -124,7 +139,6 @@ target_instances = get_data_by_class(X_train, y_train, target_y)
 fake_target_instances = generate_fake_sequences_by_TimeGAN(
     target_instances, 
     seq_length, 
-    save_model=config.to_save_model, 
     use_model=config.to_load_model, 
     path=config.model_saved_path)
 # print(fake_target_instances.shape)
@@ -135,6 +149,12 @@ fake_target_instances = generate_fake_sequences_by_TimeGAN(
 
 print("(4) Generating counterfactual instance based on the generated fake instances and fake Shapelets ......")
 print()
+
+recorded_sum_closeness_l1 = 0
+recorded_sum_closeness_l2 = 0
+recorded_sum_sparsity = 0
+recorded_sum_normal = 0
+
 cf_found = False
 sum_closeness_l1 = 0
 sum_closeness_l2 = 0
@@ -144,9 +164,18 @@ cf_count = 0 # count how many counterfactual instances are generated, also for D
 
 # for-loop: iterate over generated target Shapelets (real) by Shapelet Transform based on the length (ascending order)
 for sp_idx, sp in enumerate(sorted_shapelets):
-    if cf_found: break # retain the the case with minimum length
-    if (int(sp[5]) == int(to_be_explained_instance_label_y)): # Look for the discriminative area of to-be-explained instance
-        start_pos = sp[2]
+    if cf_found: 
+        cf_found = False
+        sum_closeness_l1 = 0
+        sum_closeness_l2 = 0
+        sum_sparsity = 0
+        sum_normal = 0 
+        cf_count = 0 # count how many counterfactual instances are generated, also for Diversity measure
+        print("Start new try on other extracted Shapelet ...")
+        # break # retain the the case with minimum length
+    # Look for the discriminative area of to-be-explained instance. That is, check if there is an extracted Shapelet having the same class as to-be-explained instance's class    
+    if (int(sp[5]) == int(to_be_explained_instance_label_y)): 
+        start_pos = sp[2] # sp[5] is class
         sp_length = sp[1]
         # Crop a specified intervals from target instances to get target shapelets for TimeGAN training
         fake_shapelets = crop_shapelets_from_dataset(
@@ -192,7 +221,9 @@ for sp_idx, sp in enumerate(sorted_shapelets):
                 #     instance_id=instance_id, 
                 #     random_seed=random_seed,
                 #     timegan_id=timegan_idx,
-                #     sp_idx=sp_idx)
+                #     sp_idx=sp_idx,
+                #     is_save=False,
+                #     is_plot=False)
                 
                 # 2. store experiment results for each cf based on a Shapelet
                 experiment.write_data_json(dataset_name, 
@@ -208,7 +239,8 @@ for sp_idx, sp in enumerate(sorted_shapelets):
                                         sp[2], 
                                         sp[1], 
                                         sp[4], 
-                                        sp[5])
+                                        sp[5],
+                                        sp_idx)
                 print("Generation stop successfully.")
                 print()    
     # 3. store aggregate (average) experiment results for all cfs based on a Shapelet
@@ -223,6 +255,7 @@ for sp_idx, sp in enumerate(sorted_shapelets):
             random_seed,
             instance_id,
             cf_count,
+            sp_idx,
             path=config.experiment_result_path_aggregate)
     else:
         print("Shapelet " + str(sp_idx), " is not able to help to find cf.")

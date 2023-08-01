@@ -1,0 +1,587 @@
+-----------------------Dataset
+ECG200:
+p: 0, 3, 7, 15, 19
+n: 4, 12, 18, 28, 33
+
+instance: 0
+/
+
+instance: 3
+/
+
+instance: 7
+/
+
+instance: 15
+1.KNN: /
+2. DrCIF:
+111: Closeness_l1:  15.182294714334144 , Closeness_l2:  2.1446698427395523 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  19.949870207526367 , Closeness_l2:  2.84227450822338 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  15.182294714334144 , Closeness_l2:  2.1446698427395523 , Sparsity:  0.0 , Out-of-distribution:  1
+3. Catch22:
+111: Closeness_l1:  20.523058437364735 , Closeness_l2:  3.110621702087996 , Sparsity:  0.0 , Out-of-distribution:  1
+222: /
+333: Closeness_l1:  16.835829380160508 , Closeness_l2:  2.3937869997987975 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 19
+1. KNN: /
+2. DrCIF: 
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: 
+222: 
+333: 
+
+instance: 4
+1. KNN: Closeness_l1:  25.882588216499997 , Closeness_l2:  3.3984177320622257 , Sparsity:  0.10416666666666663 , Out-of-distribution:  1
+2. DrCIF: 
+111: Closeness_l1:  25.882588216499997 , Closeness_l2:  3.3984177320622257 , Sparsity:  0.10416666666666663 , Out-of-distribution:  1
+222: Closeness_l1:  25.882588216499997 , Closeness_l2:  3.3984177320622257 , Sparsity:  0.10416666666666663 , Out-of-distribution:  1
+333: Closeness_l1:  29.11437591343045 , Closeness_l2:  3.737915652387049 , Sparsity:  0.0 , Out-of-distribution:  1
+3. Catch22:
+111: Closeness_l1:  31.21668656231752 , Closeness_l2:  4.353677525482436 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  71.67172058646474 , Closeness_l2:  9.146171337621556 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  30.76158571701138 , Closeness_l2:  4.171552392144503 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  25.882588216499997 , Closeness_l2:  3.3984177320622257 , Sparsity:  0.10416666666666663 , Out-of-distribution:  1
+222: Closeness_l1:  25.882588216499997 , Closeness_l2:  3.3984177320622257 , Sparsity:  0.10416666666666663 , Out-of-distribution:  1
+333: Closeness_l1:  106.27272281099104 , Closeness_l2:  70.02706769504105 , Sparsity:  0.0 , Out-of-distribution:  1
+
+instance: 12
+1. KNN: Closeness_l1:  24.46695637200138 , Closeness_l2:  3.4291371780080238 , Sparsity:  0.17708333333333337 , Out-of-distribution:  0
+2. DrCIF: 
+111: /
+222: Closeness_l1:  24.46695637200138 , Closeness_l2:  3.4291371780080238 , Sparsity:  0.17708333333333337 , Out-of-distribution:  0
+333: /
+3. Catch22:
+111: /
+222: Closeness_l1:  41.84941427656091 , Closeness_l2:  5.96573691973703 , Sparsity:  0.0 , Out-of-distribution:  0
+333: /
+4. CNN:
+111: Closeness_l1:  24.46695637200138 , Closeness_l2:  3.4291371780080238 , Sparsity:  0.17708333333333337 , Out-of-distribution:  0
+222: /
+333: Closeness_l1:  24.46695637200138 , Closeness_l2:  3.4291371780080238 , Sparsity:  0.17708333333333337 , Out-of-distribution:  0
+
+instance: 18
+1. KNN: Closeness_l1:  90.02867667513698 , Closeness_l2:  11.868985631486252 , Sparsity:  0.0 , Out-of-distribution:  0
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: Closeness_l1:  20.293844260440476 , Closeness_l2:  3.3398111664067547 , Sparsity:  0.20833333333333337 , Out-of-distribution:  1
+222: /
+333: Closeness_l1:  20.293844260440476 , Closeness_l2:  3.3398111664067547 , Sparsity:  0.20833333333333337 , Out-of-distribution:  1
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 28
+1. KNN: Closeness_l1:  22.336461276858973 , Closeness_l2:  3.514141057565796 , Sparsity:  0.19791666666666663 , Out-of-distribution:  1
+2. DrCIF:
+111: Closeness_l1:  22.336461276858973 , Closeness_l2:  3.514141057565796 , Sparsity:  0.19791666666666663 , Out-of-distribution:  1
+222: Closeness_l1:  22.951457188321207 , Closeness_l2:  3.2692425215956256 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  22.336461276858973 , Closeness_l2:  3.514141057565796 , Sparsity:  0.19791666666666663 , Out-of-distribution:  1
+3. Catch22:
+111: Closeness_l1:  23.10829016348355 , Closeness_l2:  3.3881845736113982 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  22.336461276858973 , Closeness_l2:  3.514141057565796 , Sparsity:  0.19791666666666663 , Out-of-distribution:  1
+333: Closeness_l1:  22.336461276858973 , Closeness_l2:  3.514141057565796 , Sparsity:  0.19791666666666663 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  22.336461276858973 , Closeness_l2:  3.514141057565796 , Sparsity:  0.19791666666666663 , Out-of-distribution:  1
+222: /
+333: /
+
+instance: 33
+1. KNN: Closeness_l1:  19.639918629633335 , Closeness_l2:  3.3071178225785998 , Sparsity:  0.32291666666666663 , Out-of-distribution:  1
+2. DrCIF:
+111: Closeness_l1:  19.639918629633335 , Closeness_l2:  3.3071178225785998 , Sparsity:  0.32291666666666663 , Out-of-distribution:  1
+222: Closeness_l1:  19.639918629633335 , Closeness_l2:  3.3071178225785998 , Sparsity:  0.32291666666666663 , Out-of-distribution:  1
+333: Closeness_l1:  21.02037048315781 , Closeness_l2:  3.3478284769121776 , Sparsity:  0.0 , Out-of-distribution:  1
+3. Catch22:
+111: /
+222: Closeness_l1:  19.639918629633335 , Closeness_l2:  3.3071178225785998 , Sparsity:  0.32291666666666663 , Out-of-distribution:  1
+333: Closeness_l1:  19.639918629633335 , Closeness_l2:  3.3071178225785998 , Sparsity:  0.32291666666666663 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  19.639918629633335 , Closeness_l2:  3.3071178225785998 , Sparsity:  0.32291666666666663 , Out-of-distribution:  1
+222: Closeness_l1:  19.639918629633335 , Closeness_l2:  3.3071178225785998 , Sparsity:  0.32291666666666663 , Out-of-distribution:  1
+333: Closeness_l1:  19.639918629633335 , Closeness_l2:  3.3071178225785998 , Sparsity:  0.32291666666666663 , Out-of-distribution:  1
+
+
+-----------------------Dataset
+Wafer:
+p: 0, 100, 500, 1111, 6163
+n: 6, 520, 2802, 4800, 6160
+
+instance: 0
+1. KNN: /
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 100
+1. KNN: /
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 500
+1. KNN: /
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 1111
+1. KNN: /
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 6163
+1. KNN: /
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 6
+1. KNN: Closeness_l1:  39.26146325335294 , Closeness_l2:  7.9795700565614425 , Sparsity:  0.13157894736842102 , Out-of-distribution:  0
+2. DrCIF:
+111: Closeness_l1:  39.26146325335294 , Closeness_l2:  7.9795700565614425 , Sparsity:  0.13157894736842102 , Out-of-distribution:  0
+222: Closeness_l1:  25.566353013150028 , Closeness_l2:  3.9973409303541017 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  39.26146325335294 , Closeness_l2:  7.9795700565614425 , Sparsity:  0.13157894736842102 , Out-of-distribution:  0
+3. Catch22:
+111: Closeness_l1:  39.26146325335294 , Closeness_l2:  7.9795700565614425 , Sparsity:  0.13157894736842102 , Out-of-distribution:  0
+222: Closeness_l1:  26.6822675810164 , Closeness_l2:  4.083351990360339 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  26.6822675810164 , Closeness_l2:  4.083351990360339 , Sparsity:  0.0 , Out-of-distribution:  0
+4. CNN:
+111: Closeness_l1:  77.60364622105585 , Closeness_l2:  13.429527957904886 , Sparsity:  0.0 , Out-of-distribution:  0
+222: Closeness_l1:  77.60364622105585 , Closeness_l2:  13.429527957904886 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  77.60364622105585 , Closeness_l2:  13.429527957904886 , Sparsity:  0.0 , Out-of-distribution:  0
+
+instance: 520
+1. KNN: Closeness_l1:  47.71818157481111 , Closeness_l2:  7.306069790347972 , Sparsity:  0.02631578947368418 , Out-of-distribution:  0
+2. DrCIF:
+111: Closeness_l1:  47.71818157481111 , Closeness_l2:  7.306069790347972 , Sparsity:  0.02631578947368418 , Out-of-distribution:  0
+222: Closeness_l1:  47.71818157481111 , Closeness_l2:  7.306069790347972 , Sparsity:  0.02631578947368418 , Out-of-distribution:  0
+333: Closeness_l1:  47.71818157481111 , Closeness_l2:  7.306069790347972 , Sparsity:  0.02631578947368418 , Out-of-distribution:  0
+3. Catch22:
+111: Closeness_l1:  47.71818157481111 , Closeness_l2:  7.306069790347972 , Sparsity:  0.02631578947368418 , Out-of-distribution:  0
+222: Closeness_l1:  47.71818157481111 , Closeness_l2:  7.306069790347972 , Sparsity:  0.02631578947368418 , Out-of-distribution:  0
+333: Closeness_l1:  47.71818157481111 , Closeness_l2:  7.306069790347972 , Sparsity:  0.02631578947368418 , Out-of-distribution:  0
+4. CNN:
+111: Closeness_l1:  47.71818157481111 , Closeness_l2:  7.306069790347972 , Sparsity:  0.02631578947368418 , Out-of-distribution:  0
+222: Closeness_l1:  47.71818157481111 , Closeness_l2:  7.306069790347972 , Sparsity:  0.02631578947368418 , Out-of-distribution:  0
+333: Closeness_l1:  47.71818157481111 , Closeness_l2:  7.306069790347972 , Sparsity:  0.02631578947368418 , Out-of-distribution:  0
+
+
+instance: 2802
+1. KNN: Closeness_l1:  67.0718937645495 , Closeness_l2:  10.23946312955738 , Sparsity:  0.0 , Out-of-distribution:  0
+2. DrCIF:
+111: Closeness_l1:  34.34595031088561 , Closeness_l2:  5.8236391713378906 , Sparsity:  0.17105263157894735 , Out-of-distribution:  0
+222: Closeness_l1:  34.34595031088561 , Closeness_l2:  5.8236391713378906 , Sparsity:  0.17105263157894735 , Out-of-distribution:  0
+333: Closeness_l1:  34.34595031088561 , Closeness_l2:  5.8236391713378906 , Sparsity:  0.17105263157894735 , Out-of-distribution:  0
+3. Catch22:
+111: Closeness_l1:  34.34595031088561 , Closeness_l2:  5.8236391713378906 , Sparsity:  0.17105263157894735 , Out-of-distribution:  0
+222: Closeness_l1:  26.16663187967071 , Closeness_l2:  4.077032627322558 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  26.16663187967071 , Closeness_l2:  4.077032627322558 , Sparsity:  0.0 , Out-of-distribution:  0
+4. CNN:
+111: Closeness_l1:  34.34595031088561 , Closeness_l2:  5.8236391713378906 , Sparsity:  0.17105263157894735 , Out-of-distribution:  0
+222: Closeness_l1:  34.34595031088561 , Closeness_l2:  5.8236391713378906 , Sparsity:  0.17105263157894735 , Out-of-distribution:  0
+333: Closeness_l1:  34.34595031088561 , Closeness_l2:  5.8236391713378906 , Sparsity:  0.17105263157894735 , Out-of-distribution:  0
+
+
+instance: 4800
+1. KNN: Closeness_l1:  110.92809466725075 , Closeness_l2:  15.938524511185083 , Sparsity:  0.0 , Out-of-distribution:  0
+2. DrCIF: 
+111: Closeness_l1:  37.35174358506579 , Closeness_l2:  7.891503349180762 , Sparsity:  0.125 , Out-of-distribution:  0
+222: Closeness_l1:  26.994821215820515 , Closeness_l2:  6.233638881773224 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  32.01090477818966 , Closeness_l2:  6.83400802642796 , Sparsity:  0.0 , Out-of-distribution:  0
+3. Catch22:
+111: Closeness_l1:  37.35174358506579 , Closeness_l2:  7.891503349180762 , Sparsity:  0.125 , Out-of-distribution:  0
+222: Closeness_l1:  37.35174358506579 , Closeness_l2:  7.891503349180762 , Sparsity:  0.125 , Out-of-distribution:  0
+333: Closeness_l1:  37.35174358506579 , Closeness_l2:  7.891503349180762 , Sparsity:  0.125 , Out-of-distribution:  0
+4. CNN:
+111: Closeness_l1:  110.92809466725075 , Closeness_l2:  15.938524511185083 , Sparsity:  0.0 , Out-of-distribution:  0
+222: Closeness_l1:  110.92809466725075 , Closeness_l2:  15.938524511185083 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  110.92809466725075 , Closeness_l2:  15.938524511185083 , Sparsity:  0.0 , Out-of-distribution:  0
+
+instance: 6160
+1. KNN: Closeness_l1:  36.268728976061 , Closeness_l2:  7.2969948856532545 , Sparsity:  0.125 , Out-of-distribution:  1
+2. DrCIF:
+111: Closeness_l1:  36.268728976061 , Closeness_l2:  7.2969948856532545 , Sparsity:  0.125 , Out-of-distribution:  1
+222: Closeness_l1:  36.268728976061 , Closeness_l2:  7.2969948856532545 , Sparsity:  0.125 , Out-of-distribution:  1
+333: Closeness_l1:  36.268728976061 , Closeness_l2:  7.2969948856532545 , Sparsity:  0.125 , Out-of-distribution:  1
+3. Catch22:
+111: Closeness_l1:  36.268728976061 , Closeness_l2:  7.2969948856532545 , Sparsity:  0.125 , Out-of-distribution:  1
+222: Closeness_l1:  36.268728976061 , Closeness_l2:  7.2969948856532545 , Sparsity:  0.125 , Out-of-distribution:  1
+333: Closeness_l1:  36.268728976061 , Closeness_l2:  7.2969948856532545 , Sparsity:  0.125 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  36.268728976061 , Closeness_l2:  7.2969948856532545 , Sparsity:  0.125 , Out-of-distribution:  1
+222: Closeness_l1:  36.268728976061 , Closeness_l2:  7.2969948856532545 , Sparsity:  0.125 , Out-of-distribution:  1
+333: Closeness_l1:  36.268728976061 , Closeness_l2:  7.2969948856532545 , Sparsity:  0.125 , Out-of-distribution:  1
+
+-----------------------Dataset
+MoteStrain:
+p: 1, 300, 678, 880, 1090
+n: 0, 222, 607, 1070, 1251
+
+instance: 1
+1. KNN: /
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 300
+1. KNN: /
+2. DrCIF:
+111: /
+222: Closeness_l1:  24.830016257909257 , Closeness_l2:  3.885117881332399 , Sparsity:  0.15476190476190477 , Out-of-distribution:  1
+333: Closeness_l1:  24.830016257909257 , Closeness_l2:  3.885117881332399 , Sparsity:  0.15476190476190477 , Out-of-distribution:  1
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 678
+1. KNN: Closeness_l1:  137.874331754483 , Closeness_l2:  18.4354093258567 , Sparsity:  0.0 , Out-of-distribution:  0
+2. DrCIF:
+111: Closeness_l1:  32.95573627982549 , Closeness_l2:  4.595433178423674 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  29.438733463217673 , Closeness_l2:  4.038609133625098 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  18.562327076281118 , Closeness_l2:  2.790070181607685 , Sparsity:  0.0 , Out-of-distribution:  1
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 880
+1. KNN: /
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 1090
+1. KNN: /
+2. DrCIF: 
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: Closeness_l1:  78.59010396457005 , Closeness_l2:  27.33843122630173 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 0
+1. KNN: Closeness_l1:  33.846984812665966 , Closeness_l2:  4.689490473160298 , Sparsity:  0.0 , Out-of-distribution:  1
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: Closeness_l1:  35.082405514110256 , Closeness_l2:  4.842328792287713 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  23.19259005344454 , Closeness_l2:  3.912378200085278 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  30.464714464706994 , Closeness_l2:  4.288664780817449 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  36.02144900135359 , Closeness_l2:  4.93981057116539 , Sparsity:  0.0 , Out-of-distribution:  1
+
+instance: 222
+1. KNN: /
+2. DrCIF:
+111: /
+222: Closeness_l1:  35.70299781617851 , Closeness_l2:  10.849641475991323 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  34.389824118472866 , Closeness_l2:  10.562384728869368 , Sparsity:  0.0 , Out-of-distribution:  1
+3. Catch22:
+111: Closeness_l1:  31.723644959651093 , Closeness_l2:  10.068953191473087 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  38.73639253229017 , Closeness_l2:  11.372880441171931 , Sparsity:  0.0 , Out-of-distribution:  1
+333: /
+4. CNN:
+111: Closeness_l1:  22.335999746780953 , Closeness_l2:  8.740477596932696 , Sparsity:  0.15476190476190477 , Out-of-distribution:  1
+222: /
+333: Closeness_l1:  22.335999746780953 , Closeness_l2:  8.740477596932696 , Sparsity:  0.15476190476190477 , Out-of-distribution:  1
+
+instance: 607
+1. KNN: Closeness_l1:  25.206961243500004 , Closeness_l2:  3.3690722879653188 , Sparsity:  0.0714285714285714 , Out-of-distribution:  1
+2. DrCIF:
+111: Closeness_l1:  31.402719710826876 , Closeness_l2:  4.049820335609919 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  31.16395179511645 , Closeness_l2:  3.9734722355761414 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  25.206961243500004 , Closeness_l2:  3.3690722879653188 , Sparsity:  0.0714285714285714 , Out-of-distribution:  1
+3. Catch22:
+111: Closeness_l1:  136.78110868861683 , Closeness_l2:  19.182363439861486 , Sparsity:  0.0 , Out-of-distribution:  0
+222: /
+333: Closeness_l1:  28.6837685312135 , Closeness_l2:  3.6796838999828023 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  25.206961243500004 , Closeness_l2:  3.3690722879653188 , Sparsity:  0.0714285714285714 , Out-of-distribution:  1
+222: Closeness_l1:  25.206961243500004 , Closeness_l2:  3.3690722879653188 , Sparsity:  0.0714285714285714 , Out-of-distribution:  1
+333: Closeness_l1:  25.206961243500004 , Closeness_l2:  3.3690722879653188 , Sparsity:  0.0714285714285714 , Out-of-distribution:  1
+
+instance: 1070
+1. KNN: Closeness_l1:  15.978471796362978 , Closeness_l2:  2.512977944586993 , Sparsity:  0.2142857142857143 , Out-of-distribution:  1
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: Closeness_l1:  51.97096865874985 , Closeness_l2:  8.185842674254843 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  15.978471796362978 , Closeness_l2:  2.512977944586993 , Sparsity:  0.2142857142857143 , Out-of-distribution:  1
+333: Closeness_l1:  15.978471796362978 , Closeness_l2:  2.512977944586993 , Sparsity:  0.2142857142857143 , Out-of-distribution:  1
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 1222
+1. KNN: Closeness_l1:  41.89534458008375 , Closeness_l2:  5.710364344843437 , Sparsity:  0.0 , Out-of-distribution:  1
+2. DrCIF:
+111: Closeness_l1:  28.305659906344513 , Closeness_l2:  4.4826610646740805 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  22.032209012242856 , Closeness_l2:  4.192774699236834 , Sparsity:  0.22619047619047616 , Out-of-distribution:  1
+333: Closeness_l1:  27.171213308057222 , Closeness_l2:  4.413096552789664 , Sparsity:  0.0 , Out-of-distribution:  1
+3. Catch22:
+111: Closeness_l1:  56.409262304184466 , Closeness_l2:  7.850901333982804 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  36.381912239217854 , Closeness_l2:  5.024323033420366 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  49.10486558514665 , Closeness_l2:  6.4909839531405655 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  47.08679398429892 , Closeness_l2:  6.2551398570738295 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  38.61294399779079 , Closeness_l2:  5.402323923283633 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  47.40845440739895 , Closeness_l2:  6.292234395848886 , Sparsity:  0.0 , Out-of-distribution:  1
+
+-----------------------Dataset
+FordA:
+p: 3, 209, 555, 876, 1319
+n: 23, 190, 501, 801, 1211
+
+instance: 3
+1. KNN: /
+2. DrCIF:
+111: /
+222: Closeness_l1:  318.6464564405259 , Closeness_l2:  43.46757849678691 , Sparsity:  0.0 , Out-of-distribution:  1
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 209
+1. KNN: /
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 555
+1. KNN: Closeness_l1:  561.1802566075246 , Closeness_l2:  95.59795736287626 , Sparsity:  0.0 , Out-of-distribution:  1
+2. DrCIF:
+111: /
+222: /
+333: Closeness_l1:  219.2744089780353 , Closeness_l2:  12.688270121604498 , Sparsity:  0.14600000000000002 , Out-of-distribution:  1
+3. Catch22:
+111: Closeness_l1:  835.8381412176775 , Closeness_l2:  43.54919541482189 , Sparsity:  0.0 , Out-of-distribution:  0
+222: Closeness_l1:  835.8381412176775 , Closeness_l2:  43.54919541482189 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  241.4776608316448 , Closeness_l2:  13.361314412646559 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  236.1381704336952 , Closeness_l2:  13.16763901076738 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  225.9881616042083 , Closeness_l2:  12.881735153955713 , Sparsity:  0.0 , Out-of-distribution:  1
+333: /
+
+instance: 876
+1. KNN: /
+2. DrCIF:
+111: /
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 1319
+1. KNN: Closeness_l1:  1042.3401955843397 , Closeness_l2:  51.45568925388585 , Sparsity:  0.0 , Out-of-distribution:  0
+2. DrCIF:
+111: Closeness_l1:  298.33991334879045 , Closeness_l2:  16.391748852060243 , Sparsity:  0.0 , Out-of-distribution:  1
+222: /
+333: /
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: /
+222: /
+333: /
+
+instance: 23
+1. KNN: Closeness_l1:  344.5328184178189 , Closeness_l2:  18.640779072186884 , Sparsity:  0.0 , Out-of-distribution:  1
+2. DrCIF:
+111: /
+222: /
+333: Closeness_l1:  343.51946378063167 , Closeness_l2:  18.725555330927126 , Sparsity:  0.018000000000000016 , Out-of-distribution:  1
+3. Catch22:
+111: /
+222: Closeness_l1:  856.7596227332333 , Closeness_l2:  46.47881205087696 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  397.72455855129186 , Closeness_l2:  28.81785146852055 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  343.51946378063167 , Closeness_l2:  18.725555330927126 , Sparsity:  0.018000000000000016 , Out-of-distribution:  1
+222: /
+333: Closeness_l1:  371.59765339748424 , Closeness_l2:  19.646657198060478 , Sparsity:  0.0 , Out-of-distribution:  1
+
+instance: 190
+1. KNN: Closeness_l1:  297.61462731365356 , Closeness_l2:  17.487417030939053 , Sparsity:  0.07599999999999996 , Out-of-distribution:  1
+2. DrCIF:
+111: Closeness_l1:  1008.5170055642373 , Closeness_l2:  51.06760881141701 , Sparsity:  0.0 , Out-of-distribution:  0
+222: /
+333: Closeness_l1:  1008.5170055642373 , Closeness_l2:  51.06760881141701 , Sparsity:  0.0 , Out-of-distribution:  0
+3. Catch22:
+111: /
+222: /
+333: /
+4. CNN:
+111: Closeness_l1:  315.8587343978666 , Closeness_l2:  18.05600397855019 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  311.89073484213606 , Closeness_l2:  17.908686568340777 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  1044.1297988380684 , Closeness_l2:  52.585863648440316 , Sparsity:  0.0 , Out-of-distribution:  0
+
+instance: 501
+1. KNN: Closeness_l1:  233.41394473377383 , Closeness_l2:  13.443495297576089 , Sparsity:  0.09999999999999998 , Out-of-distribution:  1
+2. DrCIF: 
+111: /
+222: Closeness_l1:  1330.571966168117 , Closeness_l2:  63.78879290920281 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  295.97077018704005 , Closeness_l2:  17.099183142834846 , Sparsity:  0.0 , Out-of-distribution:  1
+3. Catch22:
+111: Closeness_l1:  424.2405043445339 , Closeness_l2:  28.49822146080942 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  1245.4676943222023 , Closeness_l2:  61.516977400907464 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  359.4507422380856 , Closeness_l2:  38.28601706912199 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  233.41394473377383 , Closeness_l2:  13.443495297576089 , Sparsity:  0.09999999999999998 , Out-of-distribution:  1
+222: Closeness_l1:  233.41394473377383 , Closeness_l2:  13.443495297576089 , Sparsity:  0.09999999999999998 , Out-of-distribution:  1
+333: /
+
+instance: 801
+1. KNN: Closeness_l1:  243.85638934983874 , Closeness_l2:  14.813994552555913 , Sparsity:  0.13 , Out-of-distribution:  1
+2. DrCIF:
+111: /
+222: /
+333: Closeness_l1:  4556.610085952992 , Closeness_l2:  273.9383753136903 , Sparsity:  0.0 , Out-of-distribution:  0
+3. Catch22:
+111: Closeness_l1:  294.6211671411062 , Closeness_l2:  16.256452742959375 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  578.4373684816946 , Closeness_l2:  105.11275660707246 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  276.7816049781213 , Closeness_l2:  15.344531227270082 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  266.6438211786427 , Closeness_l2:  15.024893512811088 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  272.1207321728026 , Closeness_l2:  15.192576698341634 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  252.43970628698705 , Closeness_l2:  15.002164930181669 , Sparsity:  0.0 , Out-of-distribution:  1
+
+instance: 1211
+1. KNN: Closeness_l1:  276.93970130735477 , Closeness_l2:  16.46911955425165 , Sparsity:  0.136 , Out-of-distribution:  1
+2. DrCIF:
+111: Closeness_l1:  373.35488835524785 , Closeness_l2:  26.479481795064185 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  1158.8254821268729 , Closeness_l2:  64.85531950052923 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  373.35488835524785 , Closeness_l2:  26.479481795064185 , Sparsity:  0.0 , Out-of-distribution:  1
+
+3. Catch22:
+111: Closeness_l1:  317.42007645730973 , Closeness_l2:  17.95329751414247 , Sparsity:  0.0 , Out-of-distribution:  1
+222: Closeness_l1:  1130.4207688661181 , Closeness_l2:  56.99098792598084 , Sparsity:  0.0 , Out-of-distribution:  0
+333: Closeness_l1:  371.635769547777 , Closeness_l2:  26.100678343534977 , Sparsity:  0.0 , Out-of-distribution:  1
+4. CNN:
+111: Closeness_l1:  276.93970130735477 , Closeness_l2:  16.46911955425165 , Sparsity:  0.136 , Out-of-distribution:  1
+222: Closeness_l1:  358.23487337886326 , Closeness_l2:  23.93782494799831 , Sparsity:  0.0 , Out-of-distribution:  1
+333: Closeness_l1:  381.6711965532309 , Closeness_l2:  23.098100347085996 , Sparsity:  0.0 , Out-of-distribution:  1

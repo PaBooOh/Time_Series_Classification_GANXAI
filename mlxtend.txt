@@ -1,6 +1,0 @@
-ECG200:
-
-Closeness-l1: 70.825
-Closeness-l2: 10.550
-sparsity:0
-outliers: 0.8675

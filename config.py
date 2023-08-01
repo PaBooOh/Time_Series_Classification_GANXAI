@@ -4,10 +4,10 @@ shapelet_len_ratio = 0.1
 shapelet_len_ratios = [0.1, 0.2, 0.3, 0.4]
 
 ## General
-instance_id = 222
-classifier_name = "CNN"
-random_seed = 222
-dataset_name = "MoteStrain"
+instance_id = 11
+classifier_name = "DrCIF"
+random_seed = 111
+dataset_name = "ECG200"
 class_names = ['1', '-1']
 experiment_result_path_individual = 'experiment_data.json'
 experiment_result_path_aggregate = 'experiment_data_aggregate.json'
@@ -20,7 +20,6 @@ save_st = False
 ## TimeGAN
 train_steps = 5000
 model_saved_path = "TimeGAN_Models/" + dataset_name + "/" + dataset_name + "_" + str(train_steps) + "_" + str(random_seed) + ".pkl"
-to_save_model = True
 to_load_model = True
 timegan_parameters = {
     "batch_size":4,

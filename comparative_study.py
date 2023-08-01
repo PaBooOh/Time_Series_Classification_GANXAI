@@ -67,7 +67,7 @@ if config.save_cls:
     clf.fit(X_train, y_train)
     clf.save(path=config.classifier_path)
 else:
-    clf = clf.load_from_path(classifier_path + ".zip")
+    clf = clf.load_from_path(config.classifier_path + ".zip")
 y_pred = clf.predict(X_test)
 print("Report: ")
 print(classification_report(y_test, y_pred, target_names=class_names))
@@ -83,7 +83,8 @@ from mlxtend.evaluate import create_counterfactual
 from sktime.datatypes._panel._convert import from_nested_to_2d_array
 X_train_float = from_nested_to_2d_array(X_train).to_numpy()
 if_model = experiment.train_isolation_forest(X_train_float, random_seed)
-print("Starting carrying out experiment on mlxtend")
+print("Starting carrying out experiment on mlxtend ...")
+print("Experiment on ", "Dataset: ", config.dataset_name, ", Classifier: ", config.classifier_name, ", Seed: ", config.random_seed)
 instance_id = config.instance_id # Test set instance
 to_be_explained_instance = X_test.iloc[instance_id][0].values.reshape(1, seq_length)
 to_be_explained_instance_label_y = y_test[instance_id]
@@ -93,8 +94,6 @@ probas = clf.predict_proba(to_be_explained_instance)
 target = 1 if int(to_be_explained_instance_predicted_y) == -1 else -1
 target_y = 1 if to_be_explained_instance_predicted_y == "-1" else 0
 print("Target: ", target_y)
-# print(probas) # probas[0] == '-1'; probas[1] == '1'
-# print(X_train_float.shape)
 sum_closeness_l1 = 0
 sum_closeness_l2 = 0
 sum_sparsity = 0
@@ -108,12 +107,16 @@ for i in [0.4, 0.5, 1.0, 5.0, 100]:
                                 y_desired_proba=0.6,
                                 lammbda=i, #  hyperparameter
                                 random_seed=config.random_seed)
-# print(to_be_explained_instance.shape)
-# print(probs.max(axis=1).item())
-# alibi = experiment.AlibiExperiment(classifier=clf, shape=to_be_explained_instance.shape)
-# # alibi = experiment.AlibiExperiment(classifier=clf, shape=to_be_explained_instance.shape, pred_proba=probs)
-# explanation = alibi.get_explanation(to_be_explained_instance, probas)
     # print(res)
+    # plot_save_time_series(
+    #                 res, 
+    #                 to_be_explained_instance, 
+    #                 dataset_name=config.dataset_name, 
+    #                 classifier_name=config.classifier_name, 
+    #                 instance_id=instance_id, 
+    #                 random_seed=config.random_seed,
+    #                 timegan_id=999,
+    #                 sp_idx=999)
     pred = clf.predict(res.reshape(1, -1))[0]
     print('Predicted label:', pred)
     if int(pred) != target:
@@ -140,8 +143,12 @@ if cf_count == 0:
     random_seed,
     instance_id,
     cf_count,
+    "mlxtend",
     config.comparative_result_path_aggregate)
 else:
+    print("Average: ")
+    print("Avg_Closeness_L1: ", sum_closeness_l1 / cf_count, ", Avg_Closeness_L2: ", sum_closeness_l2 / cf_count, ", Avg_Sparsity: ", sparsity, ", Avg_Isolation: ", 1 - sum_normal / cf_count)
+    print()
     experiment.write_aggregate_data_json(
             dataset_name, 
             classifier_name, 
@@ -152,6 +159,7 @@ else:
             random_seed,
             instance_id,
             cf_count,
+            "mlxtend",
             config.comparative_result_path_aggregate)
 
 

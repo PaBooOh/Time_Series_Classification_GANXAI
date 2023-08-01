@@ -56,7 +56,8 @@ def write_data_json(dataset_name,
                     start, 
                     length, 
                     from_id, 
-                    from_class):
+                    from_class,
+                    shapelet_id):
     filename = experiment_result_path_individual
     # read json, if there is no content in this json, initialize it then.
     if os.path.exists(filename) and os.path.getsize(filename) > 0:
@@ -78,6 +79,7 @@ def write_data_json(dataset_name,
         "Sparsity": sparsity,
         "isolation_predict": isolation_predict,
         "Shapelet_infomation":{
+            "Shapelet_ID": shapelet_id,
             "Information_gain":information_gain,
             "Start":start,
             "Length":length,
@@ -100,6 +102,7 @@ def write_aggregate_data_json(dataset_name,
                               random_seed, 
                               instance_id,
                               cf_count,
+                              shapelet_id,
                               path):
     
     filename = path
@@ -116,6 +119,7 @@ def write_aggregate_data_json(dataset_name,
         "To-be-explained_instance_id": instance_id,
         "Number of counterfactuals generated": cf_count,
         "Random_seed": random_seed,
+        "Generated with Shapelet_ID": shapelet_id,
         "Average_Closeness": {
             "Average_Closeness_L1": avg_closeness_l1,
             "Average_Closeness_L2": avg_closeness_l2,
