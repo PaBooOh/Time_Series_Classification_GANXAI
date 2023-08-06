@@ -49,23 +49,6 @@ def show_dataset_visually(X_train, y_train, dataset_name):
     plt.savefig(dataset_name + '_classes.pdf', format="pdf")
     # plt.show()
 
-def plot_bar(values,
-             title,
-             dataset_names=["ECG200", "ECG200", "FordA", "FordA", "Wafer", "Wafer", "MoteStrain", "MoteStrain"], 
-             method_names=["mlxtend", "Time-CF", "mlxtend", "Time-CF", "mlxtend", "Time-CF", "mlxtend", "Time-CF"],
-             value_name="Manhattan distance (L1-norm)"):
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-    import pandas as pd
-    data = {'Dataset': dataset_names,
-            'Method': method_names,
-            value_name: values}
-    df = pd.DataFrame(data)
-    sns.barplot(x='Dataset', y=value_name, hue='Method', data=df)
-    plt.title(title)
-    plt.savefig("eps_storage/" + value_name + ".pdf", format='pdf')
-    plt.show()
-
 def plot_bar_curve(bar_values,
                    curve_values,
              title,
@@ -104,18 +87,36 @@ def plot_heatmap_missing_chart():
 def plot_heatmap_outliers():
     import seaborn as sns
     import pandas as pd
-    data = {'KNN': [1, 0, 0.33, 0],
-            'CNN': [0.92, 0, np.nan, np.nan],
-            'DrCIF': [0.67, 0, 0.43, 0.14],
-            'Catch22': [0.88, 0, 0.33, 0.05]}
+    data = {'KNN': [0.33, 0.5, 0.5, 0.5],
+            'CNN': [0, 0.67, 0.5, 1],
+            'DrCIF': [0, 0.33, 0.5, 0.33],
+            'Catch22': [0.17, 0.33, 0.5, 0.33]}
     df = pd.DataFrame(data, index=['ECG200', 'FordA', 'Wafer', 'MoteStrain'])
     sns.heatmap(df, annot=True, cmap=sns.cubehelix_palette(as_cmap=True))
-    plt.savefig("eps_storage/" + "mlxtend_outliers.pdf", format='pdf')
+    plt.savefig("eps_storage/" + "mlxtend_omission.pdf", format='pdf')
     plt.show()
 
-# plot_heatmap_outliers()    
-# plot_heatmap_missing_chart()
-# show_dataset_visually()
+def plot_bar(values,
+             title,
+             dataset_names=["ECG200", "ECG200", "ECG200", "FordA", "FordA", "FordA", "Wafer", "Wafer", "Wafer", "MoteStrain", "MoteStrain", "MoteStrain"], 
+             method_names=["mlxtend", "Time-CF", "Native-Guide", "mlxtend", "Time-CF", "Native-Guide", "mlxtend", "Time-CF", "Native-Guide", "mlxtend", "Time-CF", "Native-Guide"],
+             value_name="Manhattan distance (L1-norm)"):
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    import pandas as pd
+    data = {'Dataset': dataset_names,
+            'Method': method_names,
+            value_name: values}
+    df = pd.DataFrame(data)
+    sns.barplot(x='Dataset', y=value_name, hue='Method', data=df)
+    plt.title(title)
+    plt.savefig("eps_storage/" + value_name + ".pdf", format='pdf')
+    plt.show()
+
+# plot_bar(title = "Closeness", 
+#          value_name="Manhattan distance (L1-norm)",  
+#          values=[75.4, 8.8, 30.3, 573.4, 48.45, 555.1, 111.6, 13.1, 45.0, 55.3, 9.1, 43.3])
+
 # closeness-l1:
 # plot_bar(title = "Closeness", value_name="Manhattan distance (L1-norm)",  values=[70.83, 8.8, 620.2, 48.45, 136.7, 13.1, 72.8, 9.1])
 # closeness-l2:
@@ -136,3 +137,30 @@ def plot_heatmap_outliers():
 #             'Catch22': [0.46, 0, 1, 0]}
 
 ## 2) 
+
+# data = {'KNN': [1, 0, 0.33, 0],
+#             'CNN': [0.92, 0, np.nan, np.nan],
+#             'DrCIF': [0.67, 0, 0.43, 0.14],
+#             'Catch22': [0.88, 0, 0.33, 0.05]}
+
+## time-cf-omission
+# data = {'KNN': [0, 0, 0.67, 0],
+#             'CNN': [0, 0, 0.5, 0],
+#             'DrCIF': [0, 0, 0.33, 0],
+#             'Catch22': [0, 0, 0.5, 0]}
+## native-guide
+# data = {'KNN': [0.5, 0.3, 0.5, 0.5],
+#             'CNN': [0.7, 0.6, 0.5, 0.63],
+#             'DrCIF': [0.57, 0.6, 0.5, 0.57],
+#             'Catch22': [0.57, 0.53, 0.5, 0.6]}
+## mlxtend
+# data = {'KNN': [0.33, 0.5, 0.5, 0.5],
+#             'CNN': [0, 0.67, 0.5, 1],
+#             'DrCIF': [0, 0.33, 0.5, 0.33],
+#             'Catch22': [0.17, 0.33, 0.5, 0.33]}
+
+
+# closeness - l1:
+# values=[75.4, 8.8, 30.3, 573.4, 48.45, 555.1, 111.6, 13.1, 45.0, 55.3, 9.1, 43.3])
+# closeness - l2:
+# values=[10.9, 3.4, 5.3, 31.7, 8.8, 37, 12.8, 7.2, 7.9, 9.7, 3.7, 8.9]

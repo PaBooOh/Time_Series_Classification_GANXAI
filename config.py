@@ -4,9 +4,9 @@ shapelet_len_ratio = 0.1
 shapelet_len_ratios = [0.1, 0.2, 0.3, 0.4]
 
 ## General
-instance_id = 11
-classifier_name = "DrCIF"
-random_seed = 111
+instance_id = 0
+classifier_name = "CNN"
+random_seed = 333
 dataset_name = "ECG200"
 class_names = ['1', '-1']
 experiment_result_path_individual = 'experiment_data.json'
