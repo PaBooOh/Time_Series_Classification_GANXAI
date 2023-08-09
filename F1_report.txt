@@ -1,5 +1,5 @@
 1. ECG200
-To-be-explained_instance_id:  33 , Truth:  -1
+To-be-explained_instance_id:  33 , Truth:  -1 (Negative)
 	1.1 KNN
 		-1.1.1 seed=111
               precision    recall  f1-score   support
@@ -84,7 +84,7 @@ weighted avg       0.83      0.83      0.83       100
    macro avg       0.78      0.80      0.79       100
 weighted avg       0.81      0.80      0.80       100
 ================================================================
-1. ECG200 (Negative)
+1. ECG200 (Positive)
 To-be-explained_instance_id:  11 , Predicted:  -1 , Truth:  1 , Target:  1
 ================================================================
 2. FordA (Positive)

@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from process_data import *
+import seaborn as sns
 import config
 
 def plot_save_time_series(cf_series, orig_series, dataset_name, classifier_name, instance_id, random_seed, timegan_id, sp_idx, is_plot=False, is_save=True):
@@ -68,8 +69,7 @@ def plot_bar_curve(bar_values,
     plt.savefig("eps_storage/" + bar_value_name + ".pdf", format='pdf')
     plt.show()
 
-def plot_heatmap_missing_chart():
-    import seaborn as sns
+def plot_heatmap_missing_chart(data):
     import pandas as pd 
     from matplotlib.colors import ListedColormap
     cmap = ListedColormap(['red', 'blue'])
@@ -84,17 +84,40 @@ def plot_heatmap_missing_chart():
     plt.savefig("eps_storage/" + "time_cf_missing.pdf", format='pdf')
     plt.show()
 
-def plot_heatmap_outliers():
+def plot_heatmap(data, file_name):
     import seaborn as sns
     import pandas as pd
-    data = {'KNN': [0.33, 0.5, 0.5, 0.5],
-            'CNN': [0, 0.67, 0.5, 1],
-            'DrCIF': [0, 0.33, 0.5, 0.33],
-            'Catch22': [0.17, 0.33, 0.5, 0.33]}
     df = pd.DataFrame(data, index=['ECG200', 'FordA', 'Wafer', 'MoteStrain'])
-    sns.heatmap(df, annot=True, cmap=sns.cubehelix_palette(as_cmap=True))
-    plt.savefig("eps_storage/" + "mlxtend_omission.pdf", format='pdf')
+    ax = sns.heatmap(df, annot=True, cmap=sns.cubehelix_palette(as_cmap=True))
+    ax.set_title("Omission: " + file_name) 
+    plt.savefig("eps_storage/" + file_name + ".pdf", format='pdf')
     plt.show()
+
+def plot_curve():
+    data = {
+        'Dataset': ['ECG200', 'ECG200', 'ECG200', 
+                    'FordA', 'FordA', 'FordA', 
+                    'Wafer', 'Wafer', 'Wafer',
+                    'MoteStrain', 'MoteStrain', 'MoteStrain'],
+        'CF Method': ['mlxtend', 'Time-CF', 'Native-Guide', 
+                    'mlxtend', 'Time-CF', 'Native-Guide', 
+                    'mlxtend', 'Time-CF', 'Native-Guide',
+                    'mlxtend', 'Time-CF', 'Native-Guide'],
+        'Sparsity': 
+        [0, 0.603, 0.122, 
+        0, 0.879, 0.0157,
+        0, 0.96, 0.072,
+        0, 0.889, 0.0625]
+    }
+
+    df = pd.DataFrame(data)
+
+    plt.figure(figsize=(10, 6))
+    sns.lineplot(data=df, x='Dataset', y='Sparsity', hue='CF Method', marker="o")
+    plt.title('Sparsity of different CF methods on different datasets')
+    plt.savefig("eps_storage/" + "sparsity.pdf", format='pdf')
+    plt.show()
+
 
 def plot_bar(values,
              title,
@@ -108,59 +131,64 @@ def plot_bar(values,
             'Method': method_names,
             value_name: values}
     df = pd.DataFrame(data)
-    sns.barplot(x='Dataset', y=value_name, hue='Method', data=df)
+    # sns.set_palette("Paired")
+    # palette = ["pink", "orange", "purple"]
+    ax = sns.barplot(x='Dataset', y=value_name, hue='Method', data=df, )
     plt.title(title)
+    # for p in ax.patches:
+    #     if p.get_height() == 0:
+    #         ax.annotate("0%", (p.get_x() + p.get_width() / 2., 0), 
+    #                     ha='center', va='center', 
+    #                     xytext=(0, 5), textcoords='offset points', 
+    #                     color="darkgray")
     plt.savefig("eps_storage/" + value_name + ".pdf", format='pdf')
     plt.show()
 
-# plot_bar(title = "Closeness", 
-#          value_name="Manhattan distance (L1-norm)",  
-#          values=[75.4, 8.8, 30.3, 573.4, 48.45, 555.1, 111.6, 13.1, 45.0, 55.3, 9.1, 43.3])
 
-# closeness-l1:
-# plot_bar(title = "Closeness", value_name="Manhattan distance (L1-norm)",  values=[70.83, 8.8, 620.2, 48.45, 136.7, 13.1, 72.8, 9.1])
-# closeness-l2:
-# plot_bar(title = "Closeness", value_name="Euclidean distance (L2-norm)",  values=[10.6, 3.4, 33.4, 8.8, 14.6, 7.2, 12.6, 3.7])
-# # sparsity:
+"""
+Closeness:
+"""
+plot_bar(title = "Closeness", 
+         value_name="Euclidean distance (L2-norm)",  
+         values=[10.9, 4.4, 5.3, 31.7, 11.6, 37, 12.8, 4.2, 7.9, 9.7, 3.9, 8.9])
+# closeness - l1:
+# values=[75.4, 21.9, 30.3, 573.4, 81.2, 555.1, 111.6, 9.7, 45.0, 55.3, 8.9, 43.3])
+# closeness - l2:
+# values=[10.9, 4.4, 5.3, 31.7, 11.6, 37, 12.8, 4.2, 7.9, 9.7, 3.9, 8.9]
+
+"""
+Sparsity:
+"""
+
+# plot_curve()
+"""
+Plausibitly:
+"""
 # plot_bar(
 #     title = "Plausibility", 
-#     value_name="Outliers (%)", values=[0.87, 0.5, 0, 0, 0.36, 1, 0.06, 0.06])
-
-# # outliers
-# plot_bar(
-#     title = "Plausibility", 
-#     value_name="Outliers (%)", values=[0.87, 0.5, 0, 0, 0.36, 1, 0.06, 0.06])
-## 1) time_cf
-# data = {'KNN': [0.76, 0, 1, 0],
-#             'CNN': [0.69, 0, np.nan, 0.26],
-#             'DrCIF': [0.26, 0, 1, 0],
-#             'Catch22': [0.46, 0, 1, 0]}
-
-## 2) 
-
-# data = {'KNN': [1, 0, 0.33, 0],
-#             'CNN': [0.92, 0, np.nan, np.nan],
-#             'DrCIF': [0.67, 0, 0.43, 0.14],
-#             'Catch22': [0.88, 0, 0.33, 0.05]}
+#     value_name="Outliers (%)", 
+#     values=[0.2725, 0.25625, 0.255, 0, 0, 0.255, 0.355, 0.33, 0.4, 0, 0.0625, 0.07375])
+## time-cf-omission
+# data = {'KNN': [0, 0, 1, 0],
+#             'CNN': [0, 0.17, 1, 0],
+#             'DrCIF': [0, 0, 0.33, 0],
+#             'Catch22': [0, 0, 0.67, 0]}
+# plot_heatmap(data, "Time-CF")
 
 ## time-cf-omission
-# data = {'KNN': [0, 0, 0.67, 0],
-#             'CNN': [0, 0, 0.5, 0],
+# data = {'KNN': [0, 0, 1, 0],
+#             'CNN': [0, 0.17, 1, 0],
 #             'DrCIF': [0, 0, 0.33, 0],
-#             'Catch22': [0, 0, 0.5, 0]}
+#             'Catch22': [0, 0, 0.67, 0]}
 ## native-guide
 # data = {'KNN': [0.5, 0.3, 0.5, 0.5],
-#             'CNN': [0.7, 0.6, 0.5, 0.63],
+#             'CNN': [0.7, 0.5, 0.5, 0.63],
 #             'DrCIF': [0.57, 0.6, 0.5, 0.57],
-#             'Catch22': [0.57, 0.53, 0.5, 0.6]}
+#             'Catch22': [0.6, 0.53, 0.5, 0.6]}
 ## mlxtend
 # data = {'KNN': [0.33, 0.5, 0.5, 0.5],
-#             'CNN': [0, 0.67, 0.5, 1],
-#             'DrCIF': [0, 0.33, 0.5, 0.33],
-#             'Catch22': [0.17, 0.33, 0.5, 0.33]}
+#             'CNN': [0.17, 0.67, 0.5, 0.67],
+#             'DrCIF': [0, 0.33, 0.17, 0.17],
+#             'Catch22': [0.17, 0.33, 0.17, 0]}
 
 
-# closeness - l1:
-# values=[75.4, 8.8, 30.3, 573.4, 48.45, 555.1, 111.6, 13.1, 45.0, 55.3, 9.1, 43.3])
-# closeness - l2:
-# values=[10.9, 3.4, 5.3, 31.7, 8.8, 37, 12.8, 7.2, 7.9, 9.7, 3.7, 8.9]
