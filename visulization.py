@@ -148,9 +148,9 @@ def plot_bar(values,
 """
 Closeness:
 """
-plot_bar(title = "Closeness", 
-         value_name="Euclidean distance (L2-norm)",  
-         values=[10.9, 4.4, 5.3, 31.7, 11.6, 37, 12.8, 4.2, 7.9, 9.7, 3.9, 8.9])
+# plot_bar(title = "Closeness", 
+#          value_name="Euclidean distance (L2-norm)",  
+#          values=[10.9, 4.4, 5.3, 31.7, 11.6, 37, 12.8, 4.2, 7.9, 9.7, 3.9, 8.9])
 # closeness - l1:
 # values=[75.4, 21.9, 30.3, 573.4, 81.2, 555.1, 111.6, 9.7, 45.0, 55.3, 8.9, 43.3])
 # closeness - l2:
