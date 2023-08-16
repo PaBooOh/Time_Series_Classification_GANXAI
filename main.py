@@ -103,7 +103,7 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
     print("To-be-explained_instance_id: ", instance_id, ", Predicted: ", to_be_explained_instance_predicted_y, ", Truth: ", to_be_explained_instance_label_y, ", Target: ", target_y)
     print()
 
-    test_if_y = 1 if target_y == -1 else 1
+    # test_if_y = 1 if target_y == -1 else 1
     """
     3 - Train Random Shapelet Transform model and get candidates
     """
@@ -158,7 +158,7 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
     recorded_cf_count = 0
     recorded_shapelet_id = -1
 
-    search_continue = False
+    # search_continue = False
     sum_closeness_l1 = 0
     sum_closeness_l2 = 0
     sum_sparsity = 0
@@ -176,9 +176,8 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
             start_pos = sp[2] # sp[5] is class
             sp_length = sp[1]
             # Crop a specified intervals from target instances to get target shapelets for TimeGAN training
-            fake_shapelets = crop_shapelets_from_dataset(
-                X_train, 
-                y_train, 
+            fake_shapelets = crop_shapelets_from_fake(
+                fake_target_instances,
                 length=sp_length,
                 start_pos=start_pos)     
             # for-loop: iterate over generated target Shapelets (fake) by TimeGAN
@@ -189,7 +188,7 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
                 cf_predicted = clf.predict(cf_instance)[0]
                 # Find out a cf with shortest length of replacement (Shapelets) and the rest of possible cf would be skipped.
                 if (int(to_be_explained_instance_predicted_y) != int(cf_predicted)): # if cf is classified as target, meaning it is valid
-                    search_continue = True
+                    # search_continue = True
                     cf_count += 1 
                     # Experiment
                     ## Closeness: L1
@@ -210,17 +209,20 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
                     # print("Closeness_l1: ", closeness_l1, ", Closeness_l2: ", closeness_l2, ", Sparsity: ", sparsity, ", Out-of-distribution: ", isolation_predict)
                     # print()
                     # 1. plot the comparison between to-be-explained and cf
-                    # plot_save_time_series(
-                    #     cf_instance, 
-                    #     to_be_explained_instance, 
-                    #     dataset_name=dataset_name, 
-                    #     classifier_name=classifier_name, 
-                    #     instance_id=instance_id, 
-                    #     random_seed=random_seed,
-                    #     timegan_id=timegan_idx,
-                    #     sp_idx=sp_idx,
-                    #     is_save=False,
-                    #     is_plot=False)
+                    plot_save_time_series(
+                        start_pos,
+                        sp_length,
+                        cf_instance, 
+                        to_be_explained_instance, 
+                        dataset_name=dataset_name, 
+                        classifier_name=classifier_name, 
+                        instance_id=instance_id, 
+                        random_seed=random_seed,
+                        timegan_id=timegan_idx,
+                        sp_idx=sp_idx,
+                        is_save=config.save_generated_cf_figure,
+                        is_plot=False)
+                    # break
                     
                     # 2. store experiment results for each cf based on a Shapelet
                     experiment.write_data_json(dataset_name, 
@@ -274,7 +276,7 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
 # main()
 
 # or experiment on the whole dataset
-for dataset in ["Wafer"]:
+for dataset in ["FordA"]:
     for classifier in ["KNN", "CNN", "DrCIF", "Catch22"]:
         for seed in [111, 222, 333]:   
             main(dataset, classifier, seed)

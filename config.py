@@ -4,13 +4,14 @@ shapelet_len_ratio = 0.1
 shapelet_len_ratios = [0.1, 0.2, 0.3, 0.4]
 
 ## General
-instance_id = 6160
-classifier_name = "DrCIF"
+instance_id = 555
+classifier_name = "KNN"
 random_seed = 111
-dataset_name = "Wafer"
+dataset_name = "FordA"
 class_names = ['1', '-1']
 experiment_result_path_individual = 'experiment_data.json'
 experiment_result_path_aggregate = 'experiment_data_aggregate.json'
+save_generated_cf_figure = True
 
 ## Random Shapelet Transform
 extract_time = 5 # per minutes

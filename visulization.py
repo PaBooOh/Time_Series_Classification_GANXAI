@@ -6,22 +6,21 @@ from process_data import *
 import seaborn as sns
 import config
 
-def plot_save_time_series(cf_series, orig_series, dataset_name, classifier_name, instance_id, random_seed, timegan_id, sp_idx, is_plot=False, is_save=True):
+def plot_save_time_series(cf_series, orig_series, start, length, dataset_name, classifier_name, instance_id, random_seed, timegan_id, sp_idx, is_plot=False, is_save=False):
     # transform data to meet matplot requirement
     cf_series = np.squeeze(cf_series)
     orig_series = np.squeeze(orig_series)
+    # sns.set_palette("pastel")
 
     plt.figure(figsize=(12, 6))
-    # plit counterfactual instance
-    
-    # plt.plot(range(start, start + length), cf_series[start: start + length], color='red', label='changed')
-    
-    plt.plot(cf_series, color='green', label='cf (mlxtend)', linewidth=2, alpha=0.5)
-    plt.plot(orig_series, color='blue', label='To-be-explained', linewidth=1,)
+    plt.plot(cf_series, color='darkorange', label='Counterfactuals', linewidth=1.5, alpha=0.5, linestyle='-', marker='o')
+    plt.plot(orig_series, color='c', label='To-be-explained', linewidth=1.5, marker='o')
     # plt.yscale('log')
     plt.legend()
+    plt.tight_layout()
     if is_save:
         plt.savefig('Figures/' + dataset_name + "/" + classifier_name + "/" + str(sp_idx) + "_" + str(timegan_id) + "_" + str(instance_id) + "_" + str(random_seed) + '.pdf', format="pdf")
+        print("Saved.")
     if is_plot: plt.show()
 
 def show_dataset_visually(X_train, y_train, dataset_name):
@@ -93,6 +92,32 @@ def plot_heatmap(data, file_name):
     plt.savefig("eps_storage/" + file_name + ".pdf", format='pdf')
     plt.show()
 
+
+def plot_heatmaps(data1, data2, data3):
+    df_timecf = pd.DataFrame(data1, index=['ECG200', 'FordA', 'Wafer', 'MoteStrain'])
+    df_ng = pd.DataFrame(data2, index=['ECG200', 'FordA', 'Wafer', 'MoteStrain'])
+    df_mlxtend = pd.DataFrame(data3, index=['ECG200', 'FordA', 'Wafer', 'MoteStrain'])
+    
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5), gridspec_kw={'width_ratios': [1, 1, 1.2]}, sharey=True)
+    
+    sns.heatmap(df_mlxtend, ax=ax1, cbar=False, cmap=sns.cubehelix_palette(as_cmap=True), annot=True)
+    ax1.set_xlabel('mlxtend')
+    sns.heatmap(df_timecf, ax=ax2, cbar=False, cmap=sns.cubehelix_palette(as_cmap=True), annot=True)
+    ax2.set_xlabel('TimeCF')
+    sns.heatmap(df_ng, ax=ax3, cbar=True, cmap=sns.cubehelix_palette(as_cmap=True), annot=True, vmin=0, vmax=1)
+    ax3.set_xlabel('Native-Guide')
+
+    ax1.set_aspect('equal', adjustable='box')
+    ax2.set_aspect('equal', adjustable='box')
+    ax3.set_aspect('equal', adjustable='box')
+    
+    fig.suptitle("Omission", x=0.5, y=0.96)  
+    # plt.subplots_adjust(left=0.1, right=0.9)
+    fig.tight_layout(pad=1)
+    plt.savefig("eps_storage/Omission.pdf", format='pdf', bbox_inches='tight', pad_inches=0)
+    plt.show()
+
+
 def plot_curve():
     data = {
         'Dataset': ['ECG200', 'ECG200', 'ECG200', 
@@ -135,14 +160,54 @@ def plot_bar(values,
     # palette = ["pink", "orange", "purple"]
     ax = sns.barplot(x='Dataset', y=value_name, hue='Method', data=df, )
     plt.title(title)
-    # for p in ax.patches:
-    #     if p.get_height() == 0:
-    #         ax.annotate("0%", (p.get_x() + p.get_width() / 2., 0), 
-    #                     ha='center', va='center', 
-    #                     xytext=(0, 5), textcoords='offset points', 
-    #                     color="darkgray")
+    for p in ax.patches:
+        if p.get_height() == 0.002:
+            ax.annotate("0%", (p.get_x() + p.get_width() / 2., 0), 
+                        ha='center', va='center', 
+                        xytext=(0, 5), textcoords='offset points', 
+                        color="darkgray")
     plt.savefig("eps_storage/" + value_name + ".pdf", format='pdf')
     plt.show()
+
+def plott_save_time_series(cf_series, orig_series, dataset_name, classifier_name, instance_id, random_seed, timegan_id, sp_idx, is_plot=False, is_save=False):
+    # transform data to meet matplot requirement
+    cf_series = np.squeeze(cf_series)
+    orig_series = np.squeeze(orig_series)
+    
+    # Find overlapping indices
+    overlapping_idx = np.where(cf_series == orig_series)[0]
+    
+    # Create a mask for non-overlapping indices in cf_series
+    non_overlapping_mask = np.ones(cf_series.shape, dtype=bool)
+    non_overlapping_mask[overlapping_idx] = False
+    
+    # Create new cf_series for non-overlapping parts
+    non_overlap_cf_series = cf_series.astype(float).copy()
+    non_overlap_cf_series[overlapping_idx] = np.nan
+    
+    plt.figure(figsize=(12, 6))
+    
+    # Plot the original series
+    plt.plot(orig_series, color='blue', label='To-be-explained', linewidth=1)
+    
+    # Plot the counterfactual series where it doesn't overlap with the original series
+    plt.plot(non_overlap_cf_series, color='green', label='cf (mlxtend)', linewidth=2, alpha=0.5)
+    
+    # Uncomment the next line if you want to set the y-axis to a logarithmic scale
+    # plt.yscale('log')
+    
+    plt.legend()
+    
+    if is_save:
+        plt.savefig('Figures/' + dataset_name + "/" + classifier_name + "/" + str(sp_idx) + "_" + str(timegan_id) + "_" + str(instance_id) + "_" + str(random_seed) + '.pdf', format="pdf")
+    
+    if is_plot:
+        plt.show()
+
+# Example usage
+# cf_series = np.array([1, 2, 3, 4, 5, 7, 2, 1])
+# orig_series = np.array([1, 2, 3, 6, 8, 5, 2, 1])
+# plot_save_time_series(cf_series, orig_series, 'dataset_name', 'classifier_name', 1, 42, 1, 1, is_plot=True)
 
 
 """
@@ -161,34 +226,34 @@ Sparsity:
 """
 
 # plot_curve()
+
+"""Omission"""
+# omission: Time-CF
+# data_timecf = {'KNN': [0, 0, 1, 0],
+#             'CNN': [0, 0.17, 1, 0],
+#             'DrCIF': [0, 0, 0.33, 0],
+#             'Catch22': [0, 0, 0.67, 0]}
+# # omission: Native-Guide
+# data_ng = {'KNN': [0.5, 0.3, 0.5, 0.5],
+#             'CNN': [0.7, 0.5, 0.5, 0.63],
+#             'DrCIF': [0.57, 0.6, 0.5, 0.57],
+#             'Catch22': [0.6, 0.53, 0.5, 0.6]}
+# # omission: mlxtend
+# data_mlxtend = {'KNN': [0.33, 0.5, 0.5, 0.5],
+#             'CNN': [0.17, 0.67, 0.5, 0.67],
+#             'DrCIF': [0, 0.33, 0.17, 0.17],
+#             'Catch22': [0.17, 0.33, 0.17, 0]}
+
+# plot_heatmaps(data_mlxtend, data_ng, data_timecf)
+
 """
 Plausibitly:
 """
 # plot_bar(
 #     title = "Plausibility", 
 #     value_name="Outliers (%)", 
-#     values=[0.2725, 0.25625, 0.255, 0, 0, 0.255, 0.355, 0.33, 0.4, 0, 0.0625, 0.07375])
-## time-cf-omission
-# data = {'KNN': [0, 0, 1, 0],
-#             'CNN': [0, 0.17, 1, 0],
-#             'DrCIF': [0, 0, 0.33, 0],
-#             'Catch22': [0, 0, 0.67, 0]}
-# plot_heatmap(data, "Time-CF")
+#     values=[0.2725, 0.25625, 0.255, 0.002, 0.002, 0.255, 0.355, 0.33, 0.4, 0.002, 0.0625, 0.07375])
 
-## time-cf-omission
-# data = {'KNN': [0, 0, 1, 0],
-#             'CNN': [0, 0.17, 1, 0],
-#             'DrCIF': [0, 0, 0.33, 0],
-#             'Catch22': [0, 0, 0.67, 0]}
-## native-guide
-# data = {'KNN': [0.5, 0.3, 0.5, 0.5],
-#             'CNN': [0.7, 0.5, 0.5, 0.63],
-#             'DrCIF': [0.57, 0.6, 0.5, 0.57],
-#             'Catch22': [0.6, 0.53, 0.5, 0.6]}
-## mlxtend
-# data = {'KNN': [0.33, 0.5, 0.5, 0.5],
-#             'CNN': [0.17, 0.67, 0.5, 0.67],
-#             'DrCIF': [0, 0.33, 0.17, 0.17],
-#             'Catch22': [0.17, 0.33, 0.17, 0]}
+
 
 

@@ -42,11 +42,11 @@ def get_time_series_length(X):
         return X.shape[1]
 
 # Get shapelets with specified length and specified interval for a class
-def crop_shapelets_from_dataset(X, Y, length, start_pos):
+def crop_shapelets_from_fake(X, length, start_pos):
     from sktime.datatypes._panel._convert import from_nested_to_2d_array
-    X = from_nested_to_2d_array(X).to_numpy()
+    # X = from_nested_to_2d_array(X).to_numpy()
     res = []
-    for x, y in zip(X, Y):
+    for x in X:
         # if (int(y) == target_class):
         res.append(x[start_pos: start_pos + length])
     
