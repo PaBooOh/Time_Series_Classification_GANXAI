@@ -5,7 +5,7 @@ shapelet_len_ratios = [0.1, 0.2, 0.3, 0.4]
 
 ## General
 instance_id = 555
-classifier_name = "KNN"
+classifier_name = "CNN"
 random_seed = 111
 dataset_name = "FordA"
 class_names = ['1', '-1']
@@ -32,7 +32,7 @@ timegan_parameters = {
 }
 
 ## Classifiers
-save_cls = True
+save_cls = False
 classifier_path = "Classifiers_Models/" + classifier_name + "/" + classifier_name + "_" + dataset_name + "_" + str(random_seed)
 
 ## Comparative study: mlxtend

@@ -70,8 +70,9 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
         clf.fit(X_train, y_train)
         clf.save(path=config.classifier_path)
     else:
-        clf = clf.load_from_path(config.classifier_path + ".zip")
-        print("Loading model at " + config.classifier_path + ".zip")
+        classifier_path = "Classifiers_Models/" + classifier_name + "/" + classifier_name + "_" + dataset_name + "_" + str(random_seed)
+        clf = clf.load_from_path(classifier_path + ".zip")
+        print("Loading model at " + classifier_path + ".zip")
     y_pred = clf.predict(X_test)
     print("Report: ")
     print(classification_report(y_test, y_pred, target_names=class_names))
@@ -209,19 +210,19 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
                     # print("Closeness_l1: ", closeness_l1, ", Closeness_l2: ", closeness_l2, ", Sparsity: ", sparsity, ", Out-of-distribution: ", isolation_predict)
                     # print()
                     # 1. plot the comparison between to-be-explained and cf
-                    plot_save_time_series(
-                        start_pos,
-                        sp_length,
-                        cf_instance, 
-                        to_be_explained_instance, 
-                        dataset_name=dataset_name, 
-                        classifier_name=classifier_name, 
-                        instance_id=instance_id, 
-                        random_seed=random_seed,
-                        timegan_id=timegan_idx,
-                        sp_idx=sp_idx,
-                        is_save=config.save_generated_cf_figure,
-                        is_plot=False)
+                    # plot_save_time_series(
+                    #     cf_instance,
+                    #     to_be_explained_instance, 
+                    #     start_pos,
+                    #     sp_length,
+                    #     dataset_name=dataset_name, 
+                    #     classifier_name=classifier_name, 
+                    #     instance_id=instance_id, 
+                    #     random_seed=random_seed,
+                    #     timegan_id=timegan_idx,
+                    #     sp_idx=sp_idx,
+                    #     is_save=config.save_generated_cf_figure,
+                    #     is_plot=False)
                     # break
                     
                     # 2. store experiment results for each cf based on a Shapelet
@@ -277,6 +278,6 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
 
 # or experiment on the whole dataset
 for dataset in ["FordA"]:
-    for classifier in ["KNN", "CNN", "DrCIF", "Catch22"]:
-        for seed in [111, 222, 333]:   
+    for classifier in ["CNN", "DrCIF", "Catch22"]:
+        for seed in [222, 333]:   
             main(dataset, classifier, seed)
