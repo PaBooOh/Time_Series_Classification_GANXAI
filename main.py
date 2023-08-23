@@ -8,8 +8,6 @@ from shapelets_transform import*
 from sklearn.metrics import classification_report
 from visulization import *
 import experiment
-import numpy as np
-import tensorflow as tf
 import config
 
 
@@ -121,9 +119,7 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
         st.save(path=config.st_saved_path)
     else:
         st = st.load_from_path(config.st_saved_path + ".zip")
-
     st.transform(X_train)
-
 
     sorted_shapelets = sorted(st.shapelets, key=lambda sp: sp[1]) # Sorted by length
     print("Statistics about all Shapelets extracted by Shapelet Transform: ")
@@ -205,42 +201,42 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
                     sum_sparsity += sparsity # sparsity
                     sum_normal += isolation_predict
                     
-                    print("A Counterfactual instance generated >>> Shapelet_Id: ", sp_idx, ", TimeGAN_id: ", timegan_idx)
+                    print("A Counterfactual instance generated >>> Shapelet_Id: ", sp_idx, ", TimeGAN_id: ", timegan_idx, ", Is_normal: ", isolation_predict)
                     # print("Information gain: ", sp[0], ", Start: ", sp[2], ", Length: ", sp[1], ", From Instance: ", sp[4], ", Class: ", sp[5])
                     # print("Closeness_l1: ", closeness_l1, ", Closeness_l2: ", closeness_l2, ", Sparsity: ", sparsity, ", Out-of-distribution: ", isolation_predict)
                     # print()
                     # 1. plot the comparison between to-be-explained and cf
-                    # plot_save_time_series(
-                    #     cf_instance,
-                    #     to_be_explained_instance, 
-                    #     start_pos,
-                    #     sp_length,
-                    #     dataset_name=dataset_name, 
-                    #     classifier_name=classifier_name, 
-                    #     instance_id=instance_id, 
-                    #     random_seed=random_seed,
-                    #     timegan_id=timegan_idx,
-                    #     sp_idx=sp_idx,
-                    #     is_save=config.save_generated_cf_figure,
-                    #     is_plot=False)
-                    # break
+                    plot_save_time_series(
+                        cf_instance,
+                        to_be_explained_instance, 
+                        start_pos,
+                        sp_length,
+                        dataset_name=dataset_name, 
+                        classifier_name=classifier_name, 
+                        instance_id=instance_id, 
+                        random_seed=random_seed,
+                        timegan_id=timegan_idx,
+                        sp_idx=sp_idx,
+                        is_save=config.save_generated_cf_figure,
+                        is_plot=False)
+                    break
                     
                     # 2. store experiment results for each cf based on a Shapelet
-                    experiment.write_data_json(dataset_name, 
-                                            classifier_name, 
-                                            closeness_l1, 
-                                            closeness_l2, 
-                                            sparsity,
-                                            isolation_predict,
-                                            random_seed, 
-                                            instance_id, 
-                                            timegan_idx,
-                                            sp[0], 
-                                            sp[2], 
-                                            sp[1], 
-                                            sp[4], 
-                                            sp[5],
-                                            sp_idx)
+                    # experiment.write_data_json(dataset_name, 
+                    #                         classifier_name, 
+                    #                         closeness_l1, 
+                    #                         closeness_l2, 
+                    #                         sparsity,
+                    #                         isolation_predict,
+                    #                         random_seed, 
+                    #                         instance_id, 
+                    #                         timegan_idx,
+                    #                         sp[0], 
+                    #                         sp[2], 
+                    #                         sp[1], 
+                    #                         sp[4], 
+                    #                         sp[5],
+                    #                         sp_idx)
                     # print("Generation stop successfully.")
                     # print()
             if cf_count != 0:
@@ -274,10 +270,10 @@ def main(dataset = config.dataset_name, classifier_name = config.classifier_name
         path=config.experiment_result_path_aggregate)
 
 # experiment once
-# main()
+main()
 
 # or experiment on the whole dataset
-for dataset in ["FordA"]:
-    for classifier in ["CNN", "DrCIF", "Catch22"]:
-        for seed in [222, 333]:   
-            main(dataset, classifier, seed)
+# for dataset in ["MoteStrain"]:
+#     for classifier in ["KNN", "CNN", "DrCIF", "Catch22"]:
+#         for seed in [111, 222, 333]:   
+#             main(dataset, classifier, seed)

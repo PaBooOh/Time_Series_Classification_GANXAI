@@ -13,8 +13,9 @@ def plot_save_time_series(cf_series, orig_series, start, length, dataset_name, c
     # sns.set_palette("pastel")
 
     plt.figure(figsize=(12, 6))
-    plt.plot(cf_series, color='darkorange', label='Counterfactuals', linewidth=1.5, alpha=0.5, linestyle='-', marker='o')
-    plt.plot(orig_series, color='c', label='To-be-explained', linewidth=1.5, marker='o')
+    plt.plot(orig_series, color='c', label='To-be-explained', linewidth=1.5, )
+    plt.plot(cf_series, color='darkorange', label='Counterfactual', linewidth=2, alpha=0.8, linestyle='-')
+    
     # plt.yscale('log')
     plt.legend()
     plt.tight_layout()
@@ -207,7 +208,7 @@ def plott_save_time_series(cf_series, orig_series, dataset_name, classifier_name
 # Example usage
 # cf_series = np.array([1, 2, 3, 4, 5, 7, 2, 1])
 # orig_series = np.array([1, 2, 3, 6, 8, 5, 2, 1])
-# plot_save_time_series(cf_series, orig_series, 'dataset_name', 'classifier_name', 1, 42, 1, 1, is_plot=True)
+# plot_save_time_series(cf_series, orig_series, 0, 0, 'dataset_name', 'classifier_name', 1, 42, 1, 1, is_plot=True)
 
 
 """
@@ -215,11 +216,11 @@ Closeness:
 """
 # plot_bar(title = "Closeness", 
 #          value_name="Euclidean distance (L2-norm)",  
-#          values=[10.9, 4.4, 5.3, 31.7, 11.6, 37, 12.8, 4.2, 7.9, 9.7, 3.9, 8.9])
-# closeness - l1:
-# values=[75.4, 21.9, 30.3, 573.4, 81.2, 555.1, 111.6, 9.7, 45.0, 55.3, 8.9, 43.3])
-# closeness - l2:
-# values=[10.9, 4.4, 5.3, 31.7, 11.6, 37, 12.8, 4.2, 7.9, 9.7, 3.9, 8.9]
+#          values=[10.9, 3.9, 5.3, 31.7, 11.6, 37, 12.8, 4.2, 7.9, 9.7, 3.0, 8.9])
+# closeness - l1: "Manhattan distance (L1-norm)"
+# values=[75.4, 17.7, 30.3, 573.4, 81.2, 555.1, 111.6, 9.7, 45.0, 55.3, 8.8, 43.3])
+# closeness - l2: "Euclidean distance (L2-norm)"
+# values=[10.9, 3.9, 5.3, 31.7, 11.6, 37, 12.8, 4.2, 7.9, 9.7, 3.0, 8.9]
 
 """
 Sparsity:
@@ -229,10 +230,10 @@ Sparsity:
 
 """Omission"""
 # omission: Time-CF
-# data_timecf = {'KNN': [0, 0, 1, 0],
+# data_timecf = {'KNN': [0, 0, 1, 0.33],
 #             'CNN': [0, 0.17, 1, 0],
-#             'DrCIF': [0, 0, 0.33, 0],
-#             'Catch22': [0, 0, 0.67, 0]}
+#             'DrCIF': [0.33, 0, 0.5, 0],
+#             'Catch22': [0.17, 0, 0.83, 0]}
 # # omission: Native-Guide
 # data_ng = {'KNN': [0.5, 0.3, 0.5, 0.5],
 #             'CNN': [0.7, 0.5, 0.5, 0.63],
@@ -252,7 +253,8 @@ Plausibitly:
 # plot_bar(
 #     title = "Plausibility", 
 #     value_name="Outliers (%)", 
-#     values=[0.2725, 0.25625, 0.255, 0.002, 0.002, 0.255, 0.355, 0.33, 0.4, 0.002, 0.0625, 0.07375])
+    # values=[0.2725, 0.4775, 0.255, 0.002, 0.002, 0.255, 0.355, 0.33, 0.4, 0.002, 0.12875, 0.07375])
+# values=[0.2725, 0.25625, 0.255, 0.002, 0.002, 0.255, 0.355, 0.33, 0.4, 0.002, 0.0625, 0.07375])
 
 
 

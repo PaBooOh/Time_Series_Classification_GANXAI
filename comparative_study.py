@@ -108,15 +108,18 @@ for i in [0.4, 0.5, 1.0, 5.0, 100]:
                                 lammbda=i, #  hyperparameter
                                 random_seed=config.random_seed)
     # print(res)
-    # plot_save_time_series(
-    #                 res, 
-    #                 to_be_explained_instance, 
-    #                 dataset_name=config.dataset_name, 
-    #                 classifier_name=config.classifier_name, 
-    #                 instance_id=instance_id, 
-    #                 random_seed=config.random_seed,
-    #                 timegan_id=999,
-    #                 sp_idx=999)
+    plot_save_time_series(
+                    res, 
+                    to_be_explained_instance, 
+                    999,
+                    999,
+                    dataset_name=config.dataset_name, 
+                    classifier_name=config.classifier_name, 
+                    instance_id=instance_id, 
+                    random_seed=config.random_seed,
+                    timegan_id=999,
+                    sp_idx=999,
+                    is_save=True)
     pred = clf.predict(res.reshape(1, -1))[0]
     print('Predicted label:', pred)
     if int(pred) != target:
